@@ -1,0 +1,24 @@
+{
+  "name": "tailwind-clamp",
+  "version": "1.0.0",
+  "description": "Tailwind plugin to use CSS clamp in your projects",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicolas-cusan/tailwind-clamp.git"
+  },
+  "keywords": [
+    "tailwind",
+    "css",
+    "clamp"
+  ],
+  "author": "Nicolas Cusan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nicolas-cusan/tailwind-clamp/issues"
+  },
+  "homepage": "https://github.com/nicolas-cusan/tailwind-clamp#readme"
+}
