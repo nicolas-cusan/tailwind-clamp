@@ -47,7 +47,7 @@ The package provides two helper functions to help you define "clamped" values in
 
 ```js
 // tailwind.config.js
-const { setupClamp } = require('../src/utils.js');
+const { setupClamp } = require('tailwind-clamp/src/utils.js');
 
 const clampOptions = {
   minViewportWidth: 375,
