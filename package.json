@@ -1,6 +1,6 @@
 {
   "name": "tailwind-clamp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Tailwind CSS plugin to use CSS clamp in your projects",
   "main": "src/index.js",
   "scripts": {
