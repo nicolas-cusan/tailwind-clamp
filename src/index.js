@@ -1,5 +1,5 @@
 const plugin = require('tailwindcss/plugin');
-const { clamp } = require('./tailwind-utils.js');
+const { clamp } = require('./utils.js');
 
 let cssTransformValue = [
   'translate(var(--tw-translate-x), var(--tw-translate-y))',
@@ -246,8 +246,8 @@ function resolveProperty(property, value) {
 
 module.exports = plugin.withOptions(function (
   options = {
-    minViewPortWidth: 375,
-    maxViewPortWidth: 1440,
+    minViewportWidth: 375,
+    maxViewportWidth: 1440,
   }
 ) {
   return function ({ matchUtilities, theme }) {
@@ -273,8 +273,8 @@ module.exports = plugin.withOptions(function (
             clamp(
               props[1],
               props[2],
-              props[3] || options.minViewPortWidth,
-              props[4] || options.maxViewPortWidth
+              props[3] || options.minViewportWidth,
+              props[4] || options.maxViewportWidth
             )
           );
 

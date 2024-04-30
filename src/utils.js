@@ -1,43 +1,48 @@
 // https://chriskirknielsen.com/blog/modern-fluid-typography-with-clamp/
 
-const clamp = (_min, _max, minvw = 375, maxvw = 1440) => {
-  let min = _min;
-  let max = _max;
+const clamp = (_start, _end, minvw = 375, maxvw = 1440) => {
+  let start = _start;
+  let end = _end;
   let negative = false;
 
-  if (_max < _min && _min < 0 && _max < 0) {
-    min = Math.abs(_min);
-    max = Math.abs(_max);
+  if (_end < _start && _start < 0 && _end < 0) {
+    start = Math.abs(_start);
+    end = Math.abs(_end);
     negative = true;
-  } else if (_max < _min && _min > 0 && _max > 0) {
-    min = _min * -1;
-    max = _max * -1;
+  } else if (_end < _start && _start > 0 && _end > 0) {
+    start = _start * -1;
+    end = _end * -1;
     negative = true;
-  } else if (_max < _min) {
-    min = Math.abs(_min) * -1;
-    max = Math.abs(_max);
+  } else if (_end < _start) {
+    start = Math.abs(_start) * -1;
+    end = Math.abs(_end);
     negative = true;
   }
 
   const rem = (px) => `${px / 16}rem`;
-  const factor = (1 / (maxvw - minvw)) * (max - min);
-  const calc = `${rem(min - minvw * factor)} + ${100 * factor}vw`;
+  const factor = (1 / (maxvw - minvw)) * (end - start);
+  const calc = `${rem(start - minvw * factor)} + ${100 * factor}vw`;
 
-  const value = `clamp(${rem(min)}, ${calc}, ${rem(max)})`;
+  const value = `clamp(${rem(start)}, ${calc}, ${rem(end)})`;
 
   return negative ? `calc(${value} * -1)` : value;
 };
 
-const clampFs = (min, max, tracking = null, minvw = 375, maxvw = 1440) => {
-  const [minFs, minLh] = min;
-  const [maxFs, maxLh] = max;
+const clampFs = (start, end, tracking = null, minvw = 375, maxvw = 1440) => {
+  const [startFs, startLh] = start;
+  const [endFs, endLh] = end;
 
   const sameLh =
-    (minFs == minLh && maxFs === maxLh) || minLh / minFs === maxLh / maxFs;
+    (startFs == startLh && endFs === endLh) ||
+    startLh / startFs === endLh / endFs;
 
   const settings = [
-    clamp(minFs, maxFs, minvw, maxvw),
-    { lineHeight: sameLh ? minLh / minFs : clamp(minLh, maxLh, minvw, maxvw) },
+    clamp(startFs, endFs, minvw, maxvw),
+    {
+      lineHeight: sameLh
+        ? startLh / startFs
+        : clamp(startLh, endLh, minvw, maxvw),
+    },
   ];
 
   if (tracking) {
@@ -47,7 +52,31 @@ const clampFs = (min, max, tracking = null, minvw = 375, maxvw = 1440) => {
   return settings;
 };
 
+const setupClamp = (
+  options = {
+    minViewportWidth: 375,
+    maxViewportWidth: 1440,
+  }
+) => {
+  return {
+    clamp: (
+      start,
+      end,
+      minvw = options.minViewportWidth,
+      maxvw = options.maxViewportWidth
+    ) => clamp(start, end, minvw, maxvw),
+    clampFs: (
+      start,
+      end,
+      tracking = null,
+      minvw = options.minViewportWidth,
+      maxvw = options.maxViewportWidth
+    ) => clampFs(start, end, tracking, minvw, maxvw),
+  };
+};
+
 module.exports = {
   clamp,
   clampFs,
+  setupClamp,
 };
