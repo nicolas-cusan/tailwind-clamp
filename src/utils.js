@@ -1,6 +1,6 @@
 // https://chriskirknielsen.com/blog/modern-fluid-typography-with-clamp/
 
-const clamp = (_start, _end, minvw = 375, maxvw = 1440) => {
+export const clamp = (_start, _end, minvw = 375, maxvw = 1440) => {
   let start = _start;
   let end = _end;
   let negative = false;
@@ -28,7 +28,13 @@ const clamp = (_start, _end, minvw = 375, maxvw = 1440) => {
   return negative ? `calc(${value} * -1)` : value;
 };
 
-const clampFs = (start, end, tracking = null, minvw = 375, maxvw = 1440) => {
+export const clampFs = (
+  start,
+  end,
+  tracking = null,
+  minvw = 375,
+  maxvw = 1440
+) => {
   const [startFs, startLh] = start;
   const [endFs, endLh] = end;
 
@@ -52,7 +58,7 @@ const clampFs = (start, end, tracking = null, minvw = 375, maxvw = 1440) => {
   return settings;
 };
 
-const setupClamp = (
+export const setupClamp = (
   options = {
     minViewportWidth: 375,
     maxViewportWidth: 1440,
@@ -73,10 +79,4 @@ const setupClamp = (
       maxvw = options.maxViewportWidth
     ) => clampFs(start, end, tracking, minvw, maxvw),
   };
-};
-
-module.exports = {
-  clamp,
-  clampFs,
-  setupClamp,
 };
