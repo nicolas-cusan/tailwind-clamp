@@ -3,6 +3,7 @@ import plugin from 'tailwindcss/plugin';
 import { resolveProperty } from './resolve-property.js';
 import { log } from './log.js';
 import { parseValue } from './parse-value.js';
+import { clamp } from './utils.js';
 
 export default plugin.withOptions(function (
   options = {
@@ -40,29 +41,57 @@ export default plugin.withOptions(function (
           start = config().theme[key][args[1]] || args[1];
           end = config().theme[key][args[2]] || args[2];
 
-          log.info('start', key, parseValue(start));
-          log.info('end', key, end);
+          if (key === 'fontSize') {
+            return null;
+          }
 
-          // const start =
-          //   config(`theme.${args[0]}.${args[1]}`) || parseFloat(args[1]);
+          if (typeof start === 'string' || typeof start === 'number') {
+            start = parseValue(start);
+          }
 
-          // const end =
-          //   config(`theme.${args[0]}.${args[2]}`) || parseFloat(args[2]);
+          if (typeof end === 'string' || typeof end === 'number') {
+            end = parseValue(end);
+          }
 
-          // console.log('start', start);
-          // console.log('end', end);
+          if (start.unit === 'unsupported' || end.unit === 'unsupported') {
+            log.error(
+              `Only px, rem and em units are supported: "clamp-[${value}]".`
+            );
+            return null;
+          }
 
-          // const prop = resolveProperty(
-          //   args[0],
-          //   clamp(
-          //     start,
-          //     end,
-          //     args[3] || options.minViewportWidth,
-          //     args[4] || options.maxViewportWidth
-          //   )
-          // );
-          return null;
-          // return prop;
+          if (start.unit !== end.unit) {
+            log.error(`Units need to match: "clamp-[${value}]".`);
+            return null;
+          }
+
+          // @todo retrieve minvw and maxvw from the theme.screens
+          const minvw = args[3] || options.minViewportWidth;
+          const maxvw = args[4] || options.maxViewportWidth;
+
+          const val = clamp(start, end, minvw, maxvw);
+
+          const css = props.reduce((acc, prop) => {
+            if (typeof prop === 'string') {
+              acc[prop] = val;
+            } else {
+              acc = { ...acc, ...prop };
+            }
+            return acc;
+          }, {});
+
+          // const c = clamp(start, end)
+
+          // if (Array.isArray(start)) {
+          //   start = start.map(() => {
+          //     return
+          //   });
+          // } else {
+          //   log.info('start', key, parseValue(start));
+          //   log.info('end', key, end);
+          // }
+
+          return css;
         },
       },
       { values: theme('clamp') }

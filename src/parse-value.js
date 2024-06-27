@@ -1,14 +1,15 @@
-const parse = (value) => {
-  const number = parseFloat(value);
-  const unit = value.match(/px|rem|em|%|vw|vh/);
-
-  return { number, unit };
-};
-
 export const parseValue = (value) => {
-  if (Array.isArray(value)) {
-    return value.map(parse);
+  const number = parseFloat(value);
+  let unit = 'unsupported';
+
+  if (/^\d+$/.test(value)) {
+    unit = 'px';
   }
 
-  return parse(value);
+  const match = value.match(/px|rem|em/);
+  if (match) {
+    unit = match[0];
+  }
+
+  return { number, unit };
 };
