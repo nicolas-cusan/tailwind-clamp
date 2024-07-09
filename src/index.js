@@ -1,9 +1,8 @@
 import plugin from 'tailwindcss/plugin';
-// import { clamp, resolveProperty } from './utils.js';
 import { resolveProperty } from './resolve-property.js';
 import { log } from './log.js';
-import { parseValue } from './parse-value.js';
-import { clamp } from './utils.js';
+import { parseValue, parseFontSizeValue, checkValues } from './parse-value.js';
+import { clamp } from './clamp.js';
 
 export default plugin.withOptions(function (
   options = {
@@ -16,6 +15,18 @@ export default plugin.withOptions(function (
       {
         clamp: (value) => {
           const args = value.split(',');
+
+          const minvw = parseValue(
+            config().theme.screens[args[3]] ||
+              args[3] ||
+              `${options.minViewportWidth}`
+          );
+
+          const maxvw = parseValue(
+            config().theme.screens[args[4]] ||
+              args[4] ||
+              `${options.maxViewportWidth}`
+          );
 
           if (args.length < 3) {
             log.error(
@@ -35,39 +46,34 @@ export default plugin.withOptions(function (
 
           const { key, props } = resolvedProp;
 
-          let start;
-          let end;
-
-          start = config().theme[key][args[1]] || args[1];
-          end = config().theme[key][args[2]] || args[2];
-
+          // handle fontSize separately
           if (key === 'fontSize') {
-            return null;
-          }
-
-          if (typeof start === 'string' || typeof start === 'number') {
-            start = parseValue(start);
-          }
-
-          if (typeof end === 'string' || typeof end === 'number') {
-            end = parseValue(end);
-          }
-
-          if (start.unit === 'unsupported' || end.unit === 'unsupported') {
-            log.error(
-              `Only px, rem and em units are supported: "clamp-[${value}]".`
+            const start = parseFontSizeValue(
+              config().theme[key][args[1]] || args[1]
             );
-            return null;
+            const end = parseFontSizeValue(
+              config().theme[key][args[2]] || args[2]
+            );
+
+            const css = {};
+
+            Object.keys(start).forEach((k) => {
+              if (k in end && checkValues(start[k], end[k], value, k)) {
+                const val = clamp(start[k], end[k], minvw, maxvw);
+                css[k] = val;
+              }
+            });
+
+            return Object.keys(css).length > 0 ? css : null;
           }
 
-          if (start.unit !== end.unit) {
-            log.error(`Units need to match: "clamp-[${value}]".`);
+          // handle other properties
+          const start = parseValue(config().theme[key][args[1]] || args[1]);
+          const end = parseValue(config().theme[key][args[2]] || args[2]);
+
+          if (!checkValues(start, end, value)) {
             return null;
           }
-
-          // @todo retrieve minvw and maxvw from the theme.screens
-          const minvw = args[3] || options.minViewportWidth;
-          const maxvw = args[4] || options.maxViewportWidth;
 
           const val = clamp(start, end, minvw, maxvw);
 
@@ -79,17 +85,6 @@ export default plugin.withOptions(function (
             }
             return acc;
           }, {});
-
-          // const c = clamp(start, end)
-
-          // if (Array.isArray(start)) {
-          //   start = start.map(() => {
-          //     return
-          //   });
-          // } else {
-          //   log.info('start', key, parseValue(start));
-          //   log.info('end', key, end);
-          // }
 
           return css;
         },

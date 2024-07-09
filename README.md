@@ -1,6 +1,6 @@
 # Tailwind clamp
 
-Tailwind CSS utilities & plugin to use CSS `clamp` in your project. Enabling fluid interfaces using Tailwind syntax.
+Tailwind CSS plugin to use CSS `clamp` in your project. Enabling fluid interfaces using Tailwind syntax.
 
 The plugin is based on the formula presented in this [article](https://chriskirknielsen.com/blog/modern-fluid-typography-with-clamp/)
 
@@ -8,9 +8,9 @@ The plugin is based on the formula presented in this [article](https://chriskirk
 
 - Clamp values between a min and max viewport width, making it grow / shrink with the viewport.
 - Possibility to use small to large, large to small, negative to positive, positive to negative and negative to negative values. (Negative values only work on properties that allow them, e.g. `margin`)
-- Helper functions to simplify the definition of clamped values in your config.
-- Tailwind plugin to allow the usage of arbitrary values using the `clamp-[...]` syntax.
-- Values are interpreted as pixels and output as `rem`
+- Supports `px`, `rem` and `em` units.
+- Support `text` values with multiple properties (`fontSize`, `lineHeight`, `letterSpacing`).
+- Support using defined in the Tailwind CSS configuration file, arbitrary values or a combination.
 
 ## Installation
 
@@ -20,107 +20,63 @@ Install the plugin from npm:
 npm install nicolas-cusan/tailwind-clamp
 ```
 
-## Usage
-
-### Predefine values in your config
-
-The package provides two helper functions to help you define "clamped" values in your config:
-
-#### `clamp(start, end, [minViewportWidth=375, maxViewportWidth=1440])`
-
-##### Arguments
-
-- `start` `{number}`: Value at `minViewportWidth` viewport size. The value is interpreted as pixels and outputted as `rem` in the generated CSS.
-- `end` `{number}`: Value at `maxViewportWidth` viewport size. The value is interpreted as pixels and outputted as `rem` in the generated CSS.
-- `[minViewportWidth=375]` `{number}`: Viewport size, where the clamp starts, defaults to `375`. The value is interpreted as pixels. Value should be smaller than `maxViewportWidth`.
-- `[maxViewportWidth=1440]` `{number}`: Viewport size, where the clamp stops, defaults to `1440` The value is interpreted as pixels. Value should be smaller than `minViewportWidth`.
-
-#### `clampFs(start, end, [tracking=null, minViewportWidth=375, maxViewportWidth=1440])`
-
-##### Arguments
-
-- `start` `{[fontSize: number, lineHeight: number]}`: Array of two numbers: `font-size` and `line-height` respectively at `minViewportWidth` viewport size. Both values are interpreted as pixels and outputted as `rem` in the generated CSS.
-- `end` `{[fontSize: number, lineHeight: number]}`: Array of two numbers: `font-size` and `line-height` respectively at `maxViewportWidth` viewport size. Both values are interpreted as pixels and outputted as `rem` in the generated CSS.
-- `[tracking=null]` `{string|null}`: `letter-spacing` setting, it is recommended to use the `em` unit as it proportional to the font size, e.g. `-0.01em`
-- `[minViewportWidth=375]` `{number}`: Viewport size, where the clamp starts, defaults to `375`. The value is interpreted as pixels. Value should be smaller than `maxViewportWidth`.
-- `[maxViewportWidth=1440]` `{number}`: Viewport size, where the clamp stops, defaults to `1440` The value is interpreted as pixels. Value should be smaller than `minViewportWidth`.
+Add the plugin in your Tailwind CSS configuration file:
 
 ```js
 // tailwind.config.js
-const { setupClamp } = require('tailwind-clamp/src/utils.js');
-
-const clampOptions = {
-  minViewportWidth: 375,
-  maxViewportWidth: 1440,
-};
-
-// Setup the clamp helper functions with the default min and max viewport sizes you want to use
-const { clamp, clampFs } = setupClamp(options);
-
-module.exports = {
-  theme: {
-    // ...
-    extend: {
-      spacing: {
-        // Use
-        grid: clamp(10, 20),
-      },
-
-      fontSize: {
-        base: clampFs([16, 20], [24, 28], '-0.01em'),
-      },
-    },
-  },
-  // ...
-};
-```
-
-### Use the plugin with `clamp-[...]`
-
-The package also provides a plugin to use arbitrary values via the `clamp-[...]` syntax.
-
-```js
-// tailwind.config.js
-const clampOptions = {
-  minViewportWidth: 375,
-  maxViewportWidth: 1440,
-};
-
 module.exports = {
   theme: {
     // ...
   },
   plugins: [
-    require('tailwind-clamp')(clampOptions),
+    require('tailwind-clamp'),
     // ...
   ],
 };
 ```
 
-#### Configuration
+### Configuration
 
-This plugin allows two configuration options:
+The plugin allows two configuration options:
 
 | Name               | Description                          | Default value |
 | ------------------ | ------------------------------------ | ------------- |
 | `minViewportWidth` | Viewport size where the clamp starts | `375`         |
 | `maxViewportWidth` | Viewport size where the clamp end    | `1440`        |
 
-#### Using the plugin
+```js
+// tailwind.config.js
+module.exports = {
+  theme: {
+    // ...
+  },
+  plugins: [
+    require('tailwind-clamp')({
+      minViewportWidth: 375,
+      maxViewportWidth: 1440,
+    }),
+    // ...
+  ],
+};
+```
 
-The arbitrary values syntax for clamp requires at least three arguments separated by commas without whitespace:
+## Usage
 
-#### `clamp-[<property>,<start>,<end>,[minViewportWidth,maxViewportWidth]]`
+The plugin relies on the arbitrary values syntax `clamp-[...]`. You need to pass at least three arguments separated by commas without whitespace, optionally you can also pass the `minViewportWidth` and the `maxViewportWidth`:
 
-##### Arguments
+```
+clamp-[<property>,<start>,<end>,[minViewportWidth,maxViewportWidth]]
+```
 
-- `property` `{string}`: Property that the value should be applied to. See a list of all supported properties below.
-- `start` `{number}`: Value at `minViewportWidth` viewport size. The value is interpreted as pixels and output as `rem` in the generated CSS.
-- `end` `{number}`: Value at `maxViewportWidth` viewport size. The value is interpreted as pixels and output as `rem` in the generated CSS.
-- `[minViewportWidth=375]` `{number}`: Viewport size, where the clamp starts, defaults to `375`. The value is interpreted as pixels. Value should be smaller than `maxViewportWidth`.
-- `[maxViewportWidth=1440]` `{number}`: Viewport size, where the clamp stops, defaults to `1440` The value is interpreted as pixels. Value should be smaller than `minViewportWidth`.
+### Arguments
 
-##### Example
+- `property`: Property that the value should be applied to. See a list of all supported properties below.
+- `start`: Value at `minViewportWidth` viewport size. It can be a key from your Tailwind CSS config file, a css value (`px`, `rem`, `em`) or a number (unit will be `px`), the unit will need to match `end`.
+- `end`: Value at `maxViewportWidth` viewport size. It can be a key from your Tailwind CSS config file, a css value (`px`, `rem`, `em`) or a number (unit will be `px`), the unit will need to match `start`.
+- `[minViewportWidth=375]`: Viewport size, where the clamp starts, defaults to `375`. Can be a key from `screens` a css value (`px`, `rem`, `em`) or a number (unit will be `px`), the unit will need to match `maxViewportWidth`. Value needs be smaller than `maxViewportWidth`.
+- `[maxViewportWidth=1440]`: Viewport size, where the clamp stops, defaults to `1440`. Can be a key from `screens` a css value (`px`, `rem`, `em`) or a number (unit will be `px`), the unit will need to match `minViewportWidth`. Value needs to be larger than `minViewportWidth`.
+
+### Examples
 
 ```html
 <div class="clamp-[px,20,40] clamp-[py,10,18]">
@@ -137,7 +93,7 @@ The arbitrary values syntax for clamp requires at least three arguments separate
 - `left`
 - `right`
 - `bottom`
-- `text` applied to `font-size`.
+- `text` including `font-size`, `line-height` and `letter-spacing` if defined.
 - `gap` including `gap-x`, `gap-y`.
 - `w`
 - `h`
@@ -157,6 +113,5 @@ The arbitrary values syntax for clamp requires at least three arguments separate
 
 ## Roadmap
 
-- Support other units e.g `%`
 - Support directional properties e.g. `ps`
 - Add showcase
