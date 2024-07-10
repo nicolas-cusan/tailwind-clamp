@@ -1,6 +1,7 @@
 import { log } from './log.js';
 
-export const parseValue = (value) => {
+export const parseValue = (v) => {
+  const value = `${v}`;
   const number = parseFloat(value);
   let unit = 'unsupported';
 
