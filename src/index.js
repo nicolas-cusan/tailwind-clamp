@@ -4,12 +4,12 @@ import { log } from './log.js';
 import { parseValue, parseFontSizeValue, checkValues } from './parse-value.js';
 import { clamp } from './clamp.js';
 
-export default plugin.withOptions(function (
-  options = {
-    minViewportWidth: 375,
-    maxViewportWidth: 1440,
-  }
-) {
+const defaultOptions = {
+  minViewportWidth: 375,
+  maxViewportWidth: 1440,
+};
+
+export default plugin.withOptions(function (options = defaultOptions) {
   return function ({ matchUtilities, theme, config }) {
     matchUtilities(
       {
@@ -19,13 +19,15 @@ export default plugin.withOptions(function (
           const minvw = parseValue(
             config().theme.screens[args[3]] ||
               args[3] ||
-              `${options.minViewportWidth}`
+              options.minViewportWidth ||
+              defaultOptions.minViewportWidth
           );
 
           const maxvw = parseValue(
             config().theme.screens[args[4]] ||
               args[4] ||
-              `${options.maxViewportWidth}`
+              options.maxViewportWidth ||
+              defaultOptions.maxViewportWidth
           );
 
           if (args.length < 3) {
