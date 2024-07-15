@@ -11,6 +11,7 @@ The plugin is based on the formula presented in this [article](https://chriskirk
 - Supports `px`, `rem` and `em` units.
 - Support `text` values with multiple properties (`fontSize`, `lineHeight`, `letterSpacing`).
 - Support using defined in the Tailwind CSS configuration file, arbitrary values or a combination.
+- Helper function to create clamped values directly in your config file.
 
 ## Installation
 
@@ -24,12 +25,14 @@ Add the plugin in your Tailwind CSS configuration file:
 
 ```js
 // tailwind.config.js
-module.exports = {
+import tailwindClamp from 'tailwind-clamp';
+
+export default {
   theme: {
     // ...
   },
   plugins: [
-    require('tailwind-clamp'),
+    tailwindClamp,
     // ...
   ],
 };
@@ -39,19 +42,23 @@ module.exports = {
 
 The plugin allows two configuration options:
 
-| Name               | Description                          | Default value |
-| ------------------ | ------------------------------------ | ------------- |
-| `minViewportWidth` | Viewport size where the clamp starts | `375`         |
-| `maxViewportWidth` | Viewport size where the clamp end    | `1440`        |
+| Name                   | Type               | Description                           | Default value |
+| ---------------------- | ------------------ | ------------------------------------- | ------------- |
+| **`minViewportWidth`** | `{number\|string}` | Viewport size where the clamp starts. | `375`         |
+| **`maxViewportWidth`** | `{number\|string}` | Viewport size where the clamp end.    | `1440`        |
+
+Value should be a css value (`px`, `rem`, `em`) or a number (unit will be `px`). The unit for both options need to match.
 
 ```js
 // tailwind.config.js
-module.exports = {
+import tailwindClamp from 'tailwind-clamp';
+
+export default {
   theme: {
     // ...
   },
   plugins: [
-    require('tailwind-clamp')({
+    tailwindClamp({
       minViewportWidth: 375,
       maxViewportWidth: 1440,
     }),
@@ -84,7 +91,45 @@ clamp-[<property>,<start>,<end>,[minViewportWidth,maxViewportWidth]]
 </div>
 ```
 
-##### Supported properties
+## Clamped values in config
+
+The plugin includes a utility function to create clamped values directly in your config file.
+
+```js
+// tailwind.config.js
+import tailwindClamp, { clampValue } from 'tailwind-clamp';
+
+export default {
+  theme: {
+    // ...
+    padding: {
+      'my-claped-value': clampValue(20, 40),
+      'my-other-claped-value': clampValue(30, 60, {
+        unit: 'px',
+        maxViewportWidth: 1960,
+      }),
+    },
+  },
+  plugins: [
+    tailwindClamp,
+    // ...
+  ],
+};
+```
+
+### Arguments
+
+| Name                             | Type                  | Description                                | Default value |
+| -------------------------------- | --------------------- | ------------------------------------------ | ------------- |
+| **`start`**                      | `{number}`            | Value at `minViewportWidth` viewport size. |               |
+| **`end`**                        | `{number}`            | Value at `maxViewportWidth` viewport size. |               |
+| **`[options.minViewportWidth]`** | `{number}`            | Viewport size, where the clamp starts.     | `375`         |
+| **`[options.maxViewportWidth]`** | `{number}`            | Viewport size, where the clamp stops.      | `1440`        |
+| **`[options.unit]`**             | `{'px'\|'rem'\|'em'}` | Unit that should be used in the css value. | `rem`         |
+
+Al values are expected in pixels and will be converted to `[options.unit]`.
+
+## Supported properties
 
 - `p` including `pt`, `pb`, `pl`, `pr`, `px`, `py`.
 - `m` including `mt`, `mb`, `ml`, `mr`, `mx`, `my`.
