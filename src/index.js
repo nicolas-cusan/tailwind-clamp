@@ -72,8 +72,17 @@ export default plugin.withOptions(function (options = defaultOptions) {
           }
 
           // handle other properties
-          const start = parseValue(config().theme[key][args[1]] || args[1]);
-          const end = parseValue(config().theme[key][args[2]] || args[2]);
+          const startNegative = args[1].startsWith('-');
+          const endNegative = args[2].startsWith('-');
+
+          const startVal = startNegative ? args[1].slice(1) : args[1];
+          const endVal = endNegative ? args[2].slice(1) : args[2];
+
+          const start = parseValue(config().theme[key][startVal] || startVal);
+          const end = parseValue(config().theme[key][endVal] || endVal);
+
+          if (startNegative) start.number = start.number * -1;
+          if (endNegative) end.number = end.number * -1;
 
           if (!checkValues(start, end, value)) {
             return null;

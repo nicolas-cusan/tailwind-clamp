@@ -5,13 +5,17 @@ export const parseValue = (v) => {
   const number = parseFloat(value);
   let unit = 'unsupported';
 
-  if (/^\d+$/.test(value)) {
+  if (/^\d+$/.test(value) && number !== 0) {
     unit = 'px';
   }
 
   const match = value.match(/px|rem|em/);
   if (match) {
     unit = match[0];
+  }
+
+  if (number === 0) {
+    unit = 'zero';
   }
 
   return { number, unit };
@@ -47,7 +51,7 @@ export const checkValues = (start, end, value, prop = null) => {
     return null;
   }
 
-  if (start.unit !== end.unit) {
+  if (start.unit !== end.unit && start.unit !== 'zero' && end.unit !== 'zero') {
     log.error(
       `Units need to match${prop ? ` (${prop})` : ''}: "clamp-[${value}]".`
     );
