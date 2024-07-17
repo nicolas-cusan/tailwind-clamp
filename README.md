@@ -10,7 +10,7 @@ The plugin is based on the formula presented in this [article](https://chriskirk
 - Possibility to use small to large, large to small, negative to positive, positive to negative and negative to negative values. (Negative values only work on properties that allow them, e.g. `margin`)
 - Supports `px`, `rem` and `em` units.
 - Support `text` values with multiple properties (`fontSize`, `lineHeight`, `letterSpacing`).
-- Support using defined in the Tailwind CSS configuration file, arbitrary values or a combination.
+- Supports using values defined in the Tailwind CSS configuration file, arbitrary values or a combination.
 - Helper function to create clamped values directly in your config file.
 
 ## Installation
@@ -80,7 +80,7 @@ clamp-[<property>,<start>,<end>,[minViewportWidth,maxViewportWidth]]
 - `property`: Property that the value should be applied to. See a list of all supported properties below.
 - `start`: Value at `minViewportWidth` viewport size. It can be a key from your Tailwind CSS config file, a css value (`px`, `rem`, `em`) or a number (unit will be `px`), the unit will need to match `end`.
 - `end`: Value at `maxViewportWidth` viewport size. It can be a key from your Tailwind CSS config file, a css value (`px`, `rem`, `em`) or a number (unit will be `px`), the unit will need to match `start`.
-- `[minViewportWidth=375]`: Viewport size, where the clamp starts, defaults to `375`. Can be a key from `screens` a css value (`px`, `rem`, `em`) or a number (unit will be `px`), the unit will need to match `maxViewportWidth`. Value needs be smaller than `maxViewportWidth`.
+- `[minViewportWidth=375]`: Viewport size, where the clamp starts, defaults to `375`. Can be a key from `screens` a css value (`px`, `rem`, `em`) or a number (unit will be `px`), the unit will need to match `maxViewportWidth`. Value needs to be smaller than `maxViewportWidth`.
 - `[maxViewportWidth=1440]`: Viewport size, where the clamp stops, defaults to `1440`. Can be a key from `screens` a css value (`px`, `rem`, `em`) or a number (unit will be `px`), the unit will need to match `minViewportWidth`. Value needs to be larger than `minViewportWidth`.
 
 ### Examples
