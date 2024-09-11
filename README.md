@@ -127,7 +127,7 @@ export default {
 | **`[options.maxViewportWidth]`** | `{number}`            | Viewport size, where the clamp stops.      | `1440`        |
 | **`[options.unit]`**             | `{'px'\|'rem'\|'em'}` | Unit that should be used in the css value. | `rem`         |
 
-Al values are expected in pixels and will be converted to `[options.unit]`.
+All values are expected in pixels and will be converted to `[options.unit]`.
 
 ## Supported properties
 
