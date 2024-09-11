@@ -6,7 +6,7 @@ export const clamp = (
   _minvw = { number: 375, unit: 'px' },
   _maxvw = { number: 1440, unit: 'px' }
 ) => {
-  const unit = _start.unit;
+  const unit = _start.unit === 'zero' ? _end.unit : _start.unit;
   const isPx = unit === 'px';
 
   let start = _start.number;
