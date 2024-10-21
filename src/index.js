@@ -2,14 +2,14 @@ import plugin from 'tailwindcss/plugin';
 import { resolveProperty } from './resolve-property.js';
 import { log } from './log.js';
 import { parseValue, parseFontSizeValue, checkValues } from './parse-value.js';
-import { clamp, clampValue } from './clamp.js';
+import { clamp, clampValue as cv } from './clamp.js';
 
 const defaultOptions = {
   minViewportWidth: 375,
   maxViewportWidth: 1440,
 };
 
-export const clampValue = clampValue;
+export const clampValue = cv;
 
 export default plugin.withOptions(function (options = defaultOptions) {
   return function ({ matchUtilities, theme, config }) {
