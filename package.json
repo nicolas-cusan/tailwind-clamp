@@ -2,13 +2,22 @@
   "name": "tailwind-clamp",
   "version": "2.2.3",
   "description": "Tailwind CSS plugin to use CSS clamp in your projects",
-  "main": "src/index.js",
+  "main": "dist/index.umd.cjs",
+  "module": "dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.umd.cjs"
+    }
+  },
+  "files": [
+    "/dist"
+  ],
   "type": "module",
   "scripts": {
-    "dev": "next dev demo",
-    "build": "next build demo",
-    "start": "next start demo",
-    "lint": "next lint demo"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "repository": {
     "type": "git",
@@ -27,13 +36,11 @@
   "homepage": "https://github.com/nicolas-cusan/tailwind-clamp#readme",
   "dependencies": {
     "chalk": "^5.3.0",
-    "tailwindcss": "^3.4.4"
+    "tailwindcss": "^3.4.14"
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.19",
-    "postcss": "^8",
-    "next": "14.2.4",
-    "react": "^18",
-    "react-dom": "^18"
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47",
+    "vite": "^5.4.10"
   }
 }

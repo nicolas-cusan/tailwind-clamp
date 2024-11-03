@@ -25,7 +25,7 @@ Add the plugin in your Tailwind CSS configuration file:
 
 ```js
 // tailwind.config.js
-import tailwindClamp from 'tailwind-clamp';
+import { tailwindClamp } from 'tailwind-clamp';
 
 export default {
   theme: {
@@ -51,7 +51,7 @@ Value should be a css value (`px`, `rem`, `em`) or a number (unit will be `px`).
 
 ```js
 // tailwind.config.js
-import tailwindClamp from 'tailwind-clamp';
+import { tailwindClamp } from 'tailwind-clamp';
 
 export default {
   theme: {
@@ -97,7 +97,7 @@ The plugin includes a utility function to create clamped values directly in your
 
 ```js
 // tailwind.config.js
-import tailwindClamp, { clampValue } from 'tailwind-clamp';
+import { tailwindClamp, clampValue } from 'tailwind-clamp';
 
 export default {
   theme: {
