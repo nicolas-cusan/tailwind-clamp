@@ -17,6 +17,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:docs": "vite build --config vite.config.docs.js",
+    "build:all": "npm run build && npm run build:docs",
     "preview": "vite preview"
   },
   "repository": {
