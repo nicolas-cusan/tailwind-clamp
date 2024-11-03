@@ -4,19 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tailwind Clamp</title>
+    <link rel="preconnect" href="https://rsms.me/" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     <link rel="stylesheet" href="/style.css" />
   </head>
-  <body>
-    <div class="flex items-center justify-center h-screen">
-      <div class="bg-gray-800 text-white p-4 rounded-lg">
-        <h1 class="font-bold clamp-[text,s-md,s-xl]">Hello, Tailwind Clamp!</h1>
-        <p class="text-lg mt-4">
-          This is a simple example of using the clamp function in Tailwind CSS.
-        </p>
-        <p class="text-lg mt-4 p-test bg-blue-200">
-          Resize the window to see the text size change.
-        </p>
-      </div>
+  <body class="clamp-[p,5,10] clamp-[text,base,xl] bg-stone-100 text-stone-600">
+    <div class="grid clamp-[gap-y,6,8]">
+      <h1 class="font-bold clamp-[text,3xl,5xl] clamp-[leading,2rem,3.2rem]">
+        Hello, Tailwind Clamp!
+      </h1>
+      <p class="">
+        This is a simple example of using the clamp function in Tailwind CSS.
+      </p>
+      <p class="">Resize the window to see the text size change.</p>
     </div>
   </body>
 </html>
