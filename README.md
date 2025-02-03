@@ -153,6 +153,7 @@ All values are expected in pixels and will be converted to `[options.unit]`.
 - `text-stroke`
 - `stroke`
 - `leading`
+- `tracking`
 - `border` including `border-t`, `border-b`, `border-l`, `border-r`, `border-x`, `border-y`.
 - `scroll-m`
 
