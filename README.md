@@ -12,6 +12,10 @@ The plugin is based on the formula presented in this [article](https://chriskirk
 - Support `text` values with multiple properties (`fontSize`, `lineHeight`, `letterSpacing`). If `lineHeight` is definded as a unitless number or a `calc()` function, the resulting value is calculated and converted to the `fontSize` unit.
 - Supports using Tailwind CSS theme values, arbitrary values or a combination.
 
+## Requirements
+
+The current version of the plugin is designed to be used with Tailwind version 4. To use it with version 3 use version 3.x.
+
 ## Installation
 
 Install the plugin from npm:
