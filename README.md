@@ -10,8 +10,7 @@ The plugin is based on the formula presented in this [article](https://chriskirk
 - Possibility to use small to large, large to small, negative to positive, positive to negative and negative to negative values. (Negative values only work on properties that allow them, e.g. `margin`)
 - Supports `px`, `rem` and `em` units.
 - Support `text` values with multiple properties (`fontSize`, `lineHeight`, `letterSpacing`).
-- Supports using values defined in the Tailwind CSS configuration file, arbitrary values or a combination.
-- Helper function to create clamped values directly in your config file.
+- Supports using Tailwind CSS theme values, arbitrary values or a combination.
 
 ## Installation
 
@@ -21,21 +20,12 @@ Install the plugin from npm:
 npm install nicolas-cusan/tailwind-clamp
 ```
 
-Add the plugin in your Tailwind CSS configuration file:
+Add the plugin in your main CSS file:
 
-```js
-// tailwind.config.js
-import { tailwindClamp } from 'tailwind-clamp';
+```css
+@import 'tailwindcss';
 
-export default {
-  theme: {
-    // ...
-  },
-  plugins: [
-    tailwindClamp,
-    // ...
-  ],
-};
+@plugin "tailwind-clamp";
 ```
 
 ### Configuration
@@ -49,21 +39,12 @@ The plugin allows two configuration options:
 
 Value should be a css value (`px`, `rem`, `em`) or a number (unit will be `px`). The unit for both options need to match.
 
-```js
-// tailwind.config.js
-import { tailwindClamp } from 'tailwind-clamp';
+```css
+@import 'tailwindcss';
 
-export default {
-  theme: {
-    // ...
-  },
-  plugins: [
-    tailwindClamp({
-      minViewportWidth: 375,
-      maxViewportWidth: 1440,
-    }),
-    // ...
-  ],
+@plugin "tailwind-clamp" {
+  minViewportWidth: 23rem,
+  maxViewportWidth: 90rem
 };
 ```
 
@@ -131,12 +112,12 @@ All values are expected in pixels and will be converted to `[options.unit]`.
 
 ## Supported properties
 
-- `p` including `pt`, `pb`, `pl`, `pr`, `px`, `py`.
-- `m` including `mt`, `mb`, `ml`, `mr`, `mx`, `my`.
-- `inset`
+- `p` including `pt`, `pb`, `pl`, `pr`, `px`, `py`, `ps`, `pe`.
+- `m` including `mt`, `mb`, `ml`, `mr`, `mx`, `my`, `ms`, `me`.
+- `inset` including `inset-x`, `inset-y`.
 - `top`
-- `left`
-- `right`
+- `left` and `start`.
+- `right` and `end`.
 - `bottom`
 - `text` including `font-size`, `line-height` and `letter-spacing` if defined.
 - `gap` including `gap-x`, `gap-y`.
@@ -159,5 +140,4 @@ All values are expected in pixels and will be converted to `[options.unit]`.
 
 ## Roadmap
 
-- Support directional properties e.g. `ps`
 - Add showcase

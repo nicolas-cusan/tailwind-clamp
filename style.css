@@ -1,5 +1,14 @@
 @import 'tailwindcss';
-@plugin './lib/index.js';
+@plugin './lib/index.js' {
+  minviewportwidth: 40rem;
+  maxviewportwidth: 90rem;
+}
+
+@theme {
+  --text-tiny: 0.625rem;
+  --text-tiny--line-height: 1.5rem;
+  --text-tiny--letter-spacing: 0.125rem;
+}
 
 @layer base {
   :root {
