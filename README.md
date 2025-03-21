@@ -9,7 +9,7 @@ The plugin is based on the formula presented in this [article](https://chriskirk
 - Clamp values between a min and max viewport width, making it grow / shrink with the viewport.
 - Possibility to use small to large, large to small, negative to positive, positive to negative and negative to negative values. (Negative values only work on properties that allow them, e.g. `margin`)
 - Supports `px`, `rem` and `em` units.
-- Support `text` values with multiple properties (`fontSize`, `lineHeight`, `letterSpacing`).
+- Support `text` values with multiple properties (`fontSize`, `lineHeight`, `letterSpacing`). If `lineHeight` is definded as a unitless number or a `calc()` function, the resulting value is calculated and converted to the `fontSize` unit.
 - Supports using Tailwind CSS theme values, arbitrary values or a combination.
 
 ## Installation
@@ -24,7 +24,6 @@ Add the plugin in your main CSS file:
 
 ```css
 @import 'tailwindcss';
-
 @plugin "tailwind-clamp";
 ```
 
@@ -32,16 +31,15 @@ Add the plugin in your main CSS file:
 
 The plugin allows two configuration options:
 
-| Name                   | Type               | Description                           | Default value |
-| ---------------------- | ------------------ | ------------------------------------- | ------------- |
-| **`minViewportWidth`** | `{number\|string}` | Viewport size where the clamp starts. | `375`         |
-| **`maxViewportWidth`** | `{number\|string}` | Viewport size where the clamp end.    | `1440`        |
+| Name                   | Type       | Description                           | Default value |
+| ---------------------- | ---------- | ------------------------------------- | ------------- |
+| **`minViewportWidth`** | `{string}` | Viewport size where the clamp starts. | `375`         |
+| **`maxViewportWidth`** | `{string}` | Viewport size where the clamp end.    | `1440`        |
 
-Value should be a css value (`px`, `rem`, `em`) or a number (unit will be `px`). The unit for both options need to match.
+Value should be a css length (`px`, `rem`, `em`). The unit for both options need to match.
 
 ```css
 @import 'tailwindcss';
-
 @plugin "tailwind-clamp" {
   minViewportWidth: 23rem,
   maxViewportWidth: 90rem
@@ -59,10 +57,10 @@ clamp-[<property>,<start>,<end>,[minViewportWidth,maxViewportWidth]]
 ### Arguments
 
 - `property`: Property that the value should be applied to. See a list of all supported properties below.
-- `start`: Value at `minViewportWidth` viewport size. It can be a key from your Tailwind CSS config file, a css value (`px`, `rem`, `em`) or a number (unit will be `px`), the unit will need to match `end`.
-- `end`: Value at `maxViewportWidth` viewport size. It can be a key from your Tailwind CSS config file, a css value (`px`, `rem`, `em`) or a number (unit will be `px`), the unit will need to match `start`.
-- `[minViewportWidth=375]`: Viewport size, where the clamp starts, defaults to `375`. Can be a key from `screens` a css value (`px`, `rem`, `em`) or a number (unit will be `px`), the unit will need to match `maxViewportWidth`. Value needs to be smaller than `maxViewportWidth`.
-- `[maxViewportWidth=1440]`: Viewport size, where the clamp stops, defaults to `1440`. Can be a key from `screens` a css value (`px`, `rem`, `em`) or a number (unit will be `px`), the unit will need to match `minViewportWidth`. Value needs to be larger than `minViewportWidth`.
+- `start`: Value at `minViewportWidth` viewport size. It can be a key from your Tailwind CSS config file or a a css length (`px`, `rem`, `em`), the unit will need to match `end`.
+- `end`: Value at `maxViewportWidth` viewport size. It can be a key from your Tailwind CSS config file or a css length (`px`, `rem`, `em`), the unit will need to match `start`.
+- `[minViewportWidth=375]`: Viewport size, where the clamp starts, defaults to `23.4375rem` (`375px`). It can be a breakpoint name from your theme or a css length (`px`, `rem`, `em`), the unit will need to match `maxViewportWidth` and be smaller than `maxViewportWidth`.
+- `[maxViewportWidth=1440]`: Viewport size, where the clamp stops, defaults to `90rem` (`1440`). It can be a breakpoint name from your theme or a css length (`px`, `rem`, `em`), the unit will need to match `minViewportWidth` and be be larger than `minViewportWidth`.
 
 ### Examples
 
@@ -71,44 +69,6 @@ clamp-[<property>,<start>,<end>,[minViewportWidth,maxViewportWidth]]
   Add some fluid padding here.
 </div>
 ```
-
-## Clamped values in config
-
-The plugin includes a utility function to create clamped values directly in your config file.
-
-```js
-// tailwind.config.js
-import { tailwindClamp, clampValue } from 'tailwind-clamp';
-
-export default {
-  theme: {
-    // ...
-    padding: {
-      'my-claped-value': clampValue(20, 40),
-      'my-other-claped-value': clampValue(30, 60, {
-        unit: 'px',
-        maxViewportWidth: 1960,
-      }),
-    },
-  },
-  plugins: [
-    tailwindClamp,
-    // ...
-  ],
-};
-```
-
-### Arguments
-
-| Name                             | Type                  | Description                                | Default value |
-| -------------------------------- | --------------------- | ------------------------------------------ | ------------- |
-| **`start`**                      | `{number}`            | Value at `minViewportWidth` viewport size. |               |
-| **`end`**                        | `{number}`            | Value at `maxViewportWidth` viewport size. |               |
-| **`[options.minViewportWidth]`** | `{number}`            | Viewport size, where the clamp starts.     | `375`         |
-| **`[options.maxViewportWidth]`** | `{number}`            | Viewport size, where the clamp stops.      | `1440`        |
-| **`[options.unit]`**             | `{'px'\|'rem'\|'em'}` | Unit that should be used in the css value. | `rem`         |
-
-All values are expected in pixels and will be converted to `[options.unit]`.
 
 ## Supported properties
 
@@ -128,7 +88,7 @@ All values are expected in pixels and will be converted to `[options.unit]`.
 - `min-h`
 - `max-w`
 - `max-h`
-- `rounded` including `rounded-t`, `rounded-r`, `rounded-b`, `rounded-l`, `rounded-tl`, `rounded-tr`, `rounded-bl`, `rounded-br`.
+- `rounded` including `rounded-s`, `rounded-ss`, `rounded-se`, `rounded-e`, `rounded-ee`, `rounded-es`, `rounded-t`, `rounded-r`, `rounded-b`, `rounded-l`, `rounded-tl`, `rounded-tr`, `rounded-bl`, `rounded-br`.
 - `translate-x`
 - `translate-y`
 - `text-stroke`

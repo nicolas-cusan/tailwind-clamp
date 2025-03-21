@@ -37,6 +37,7 @@
   },
   "homepage": "https://github.com/nicolas-cusan/tailwind-clamp#readme",
   "dependencies": {
+    "@csstools/css-calc": "^2.1.2",
     "tailwindcss": "^4.0.15"
   },
   "devDependencies": {
