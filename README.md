@@ -43,7 +43,7 @@ The plugin allows two configuration options:
 Value should be a css length (`px`, `rem`, `em`). The unit for both options need to match.
 
 ```css
-@import 'tailwindcss';
+@import "tailwindcss";
 @plugin "tailwind-clamp" {
   minViewportWidth: 25rem,
   maxViewportWidth: 80rem
