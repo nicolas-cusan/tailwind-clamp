@@ -41,7 +41,8 @@
     "tailwindcss": "^4.0.15"
   },
   "devDependencies": {
+    "@fontsource/jetbrains-mono": "^5.2.5",
     "@tailwindcss/vite": "^4.0.15",
-    "vite": "^6.2.2"
+    "vite": "^6.2.3"
   }
 }

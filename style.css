@@ -1,22 +1,81 @@
 @import 'tailwindcss';
-@plugin './lib/index.js' {
-  minviewportwidth: 40rem;
-  maxviewportwidth: 90rem;
-}
+@plugin './lib/index.js';
 
 @theme {
-  --text-tiny: 0.625rem;
-  --text-tiny--line-height: 1.5rem;
-  --text-tiny--letter-spacing: 0.125rem;
+  --font-sans: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --text-base--line-height: calc(1.65 / 1);
+
+  --container-custom: 96rem;
 }
 
-@layer base {
-  :root {
-    font-family: 'Inter', sans-serif;
-  }
-  @supports (font-variation-settings: normal) {
-    :root {
-      font-family: 'Inter var', sans-serif;
-    }
-  }
+ul,
+pre,
+table,
+ul,
+p {
+  @apply clamp-[mb,3,5];
+}
+
+ul {
+  @apply list-disc list-outside clamp-[pl,4,6];
+}
+
+li {
+  @apply clamp-[mb,1,2] last:mb-0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-semibold clamp-[mb,4,6] clamp-[mt,10,16] first:mt-0;
+}
+
+h1 {
+  @apply clamp-[text,3xl,5xl];
+}
+
+h2 {
+  @apply clamp-[text,2xl,3xl] border-b border-white pb-2;
+}
+
+h3 {
+  @apply clamp-[text,xl,2xl];
+}
+
+h4 {
+  @apply clamp-[text,lg,xl];
+}
+
+pre {
+  @apply bg-white clamp-[px,3,6] clamp-[py,2,4] rounded-md overflow-auto max-w-full text-blue-600;
+}
+
+code {
+  @apply bg-white px-1.5 rounded-md text-[90%] break-inside-avoid inline-block;
+}
+
+pre code {
+  @apply p-0 inline;
+}
+
+table {
+  @apply w-full border-collapse;
+}
+
+th,
+td {
+  @apply text-left clamp-[px,1.5,4] first:pl-0 last:pr-0 py-2;
+}
+
+td {
+  @apply border-t border-white;
+}
+
+a {
+  @apply text-blue-500 underline underline-offset-2 transition decoration-2 decoration-dotted hover:text-blue-800;
 }

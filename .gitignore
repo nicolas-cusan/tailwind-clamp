@@ -7,6 +7,10 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+README.html
+theme.json
+config.json
+
 node_modules
 dist
 dist-ssr

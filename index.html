@@ -1,22 +1,239 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="clamp-[text,base,xl] bg-stone-200">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tailwind Clamp</title>
     <link rel="preconnect" href="https://rsms.me/" />
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/1c-light.min.css"
+    />
   </head>
-  <body class="bg-stone-100 text-stone-600">
-    <div class="grid">
-      <h1 class="font-bold border-3 border-red-500 translate-x-18">
-        Hello, Tailwind Clamp!
-      </h1>
-      <p class="clamp-[text,lg,3xl,sm,lg] clamp-[py,2,18] pt-18">
-        This is a simple example of using the clamp function in Tailwind CSS.
-      </p>
-      <p class="">Resize the window to see the text size change.</p>
+  <body class="clamp-[px,5,10] max-w-4xl mx-auto clamp-[py,8,18]">
+    <h1 id="tailwind-clamp">Tailwind clamp 🗜️</h1>
+
+    <p>
+      Tailwind CSS plugin to use CSS <code>clamp</code> in your project.
+      Enabling fluid interfaces using Tailwind syntax.
+    </p>
+    <p>
+      The plugin is based on the formula presented in this
+      <a
+        href="https://chriskirknielsen.com/blog/modern-fluid-typography-with-clamp/"
+        >article</a
+      >
+    </p>
+    <h2 id="features">Features</h2>
+    <ul>
+      <li>
+        Clamp values between a min and max viewport width, making it grow /
+        shrink with the viewport.
+      </li>
+      <li>
+        Possibility to use small to large, large to small, negative to positive,
+        positive to negative and negative to negative values. (Negative values
+        only work on properties that allow them, e.g. <code>margin</code>)
+      </li>
+      <li>
+        Supports <code>px</code>, <code>rem</code> and <code>em</code> units.
+      </li>
+      <li>
+        Supports <code>text</code> values with multiple properties
+        (<code>fontSize</code>, <code>lineHeight</code>,
+        <code>letterSpacing</code>). If <code>lineHeight</code> is definded as a
+        unitless number or a <code>calc()</code> function, the resulting value
+        is calculated and converted to the <code>fontSize</code> unit.
+      </li>
+      <li>
+        Supports using Tailwind CSS theme values, arbitrary values or a
+        combination.
+      </li>
+      <li>Supports container queries.</li>
+    </ul>
+    <h2 id="requirements">Requirements</h2>
+    <p>
+      The current version of the plugin is designed to be used with Tailwind
+      version 4. To use it with version 3 use version 3.x.
+    </p>
+    <h2 id="installation">Installation</h2>
+    <p>Install the plugin from npm:</p>
+    <pre><code class="language-sh">npm i tailwind-clamp
+</code></pre>
+    <p>Add the plugin in your main CSS file:</p>
+    <pre><code class="language-css"><span class="hljs-keyword">@import</span> <span class="hljs-string">&#x27;tailwindcss&#x27;</span>;
+<span class="hljs-keyword">@plugin</span> <span class="hljs-string">&quot;tailwind-clamp&quot;</span>;
+</code></pre>
+    <h3 id="configuration">Configuration</h3>
+    <p>The plugin allows two configuration options:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <strong><code>minSize</code></strong>
+          </td>
+          <td><code>{string}</code></td>
+          <td>Viewport or container size where the clamp starts.</td>
+          <td><code>23.4375rem</code></td>
+        </tr>
+        <tr>
+          <td>
+            <strong><code>maxSize</code></strong>
+          </td>
+          <td><code>{string}</code></td>
+          <td>Viewport or container size where the clamp end.</td>
+          <td><code>90rem</code></td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      Value should be a css length (<code>px</code>, <code>rem</code>,
+      <code>em</code>). The unit for both options need to match.
+    </p>
+    <pre><code class="language-css"><span class="hljs-keyword">@import</span> <span class="hljs-string">&quot;tailwindcss&quot;</span>;
+<span class="hljs-keyword">@plugin</span> <span class="hljs-string">&quot;tailwind-clamp&quot;</span> {
+  minSize: <span class="hljs-number">25rem</span>,
+  maxSize: <span class="hljs-number">80rem</span>
+};
+</code></pre>
+    <h2 id="usage">Usage</h2>
+    <p>
+      The plugin relies on the arbitrary values syntax <code>clamp-[...]</code>.
+      You need to pass at least three arguments separated by commas without
+      whitespace, optionally you can also pass the <code>minSize</code> and the
+      <code>maxSize</code>:
+    </p>
+    <pre><code>clamp-[&lt;property&gt;,&lt;start&gt;,&lt;end&gt;,[minSize,maxSize]]
+</code></pre>
+    <h3 id="arguments">Arguments</h3>
+    <ul>
+      <li>
+        <strong><code>property</code></strong> Property that the value should be
+        applied to. See a list of all supported properties below.
+      </li>
+      <li>
+        <strong><code>start</code></strong> Value at
+        <code>minSize</code> viewport size. It can be a key from your Tailwind
+        CSS config file or a a css length (<code>px</code>, <code>rem</code>,
+        <code>em</code>), the unit will need to match <code>end</code>.
+      </li>
+      <li>
+        <strong><code>end</code></strong> Value at <code>maxSize</code> viewport
+        size. It can be a key from your Tailwind CSS config file or a css length
+        (<code>px</code>, <code>rem</code>, <code>em</code>), the unit will need
+        to match <code>start</code>.
+      </li>
+      <li>
+        <strong><code>[minSize=23.4375rem]</code></strong> Viewport or container
+        size, where the clamp starts, defaults to
+        <code>23.4375rem</code> (<code>375px</code>). It can be a breakpoint
+        name from your theme or a css length (<code>px</code>, <code>rem</code>,
+        <code>em</code>), the unit will need to match <code>maxSize</code> and
+        be smaller than <code>maxSize</code>.
+      </li>
+      <li>
+        <strong><code>[maxSize=90rem]</code></strong> Viewport or container
+        size, where the clamp stops, defaults to
+        <code>90rem</code> (<code>1440px</code>). It can be a breakpoint name
+        from your theme or a css length (<code>px</code>, <code>rem</code>,
+        <code>em</code>), the unit will need to match <code>minSize</code> and
+        be be larger than <code>minSize</code>.
+      </li>
+    </ul>
+    <h3 id="examples">Examples</h3>
+    <pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;clamp-[px,20,40] clamp-[py,10,18]&quot;</span>&gt;</span>
+  Add some fluid padding here.
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;@container&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;clamp-[text,lg,3xl,@sm,@5xl] clamp-[py,2,4,@29.5rem,@82rem]&quot;</span>&gt;</span>
+    Add some fluid typography and padding to the content of the container.
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</code></pre>
+    <h2 id="supported-properties">Supported properties</h2>
+    <ul>
+      <li>
+        <code>p</code> including <code>pt</code>, <code>pb</code>,
+        <code>pl</code>, <code>pr</code>, <code>px</code>, <code>py</code>,
+        <code>ps</code>, <code>pe</code>.
+      </li>
+      <li>
+        <code>m</code> including <code>mt</code>, <code>mb</code>,
+        <code>ml</code>, <code>mr</code>, <code>mx</code>, <code>my</code>,
+        <code>ms</code>, <code>me</code>.
+      </li>
+      <li>
+        <code>inset</code> including <code>inset-x</code>, <code>inset-y</code>.
+      </li>
+      <li><code>top</code></li>
+      <li><code>left</code> and <code>start</code>.</li>
+      <li><code>right</code> and <code>end</code>.</li>
+      <li><code>bottom</code></li>
+      <li>
+        <code>text</code> including <code>font-size</code>,
+        <code>line-height</code> and <code>letter-spacing</code> if defined.
+      </li>
+      <li>
+        <code>gap</code> including <code>gap-x</code>, <code>gap-y</code>.
+      </li>
+      <li><code>w</code></li>
+      <li><code>h</code></li>
+      <li><code>size</code></li>
+      <li><code>min-w</code> and <code>min-h</code></li>
+      <li><code>max-w</code> and <code>max-h</code></li>
+      <li>
+        <code>rounded</code> including <code>rounded-s</code>,
+        <code>rounded-ss</code>, <code>rounded-se</code>,
+        <code>rounded-e</code>, <code>rounded-ee</code>,
+        <code>rounded-es</code>, <code>rounded-t</code>, <code>rounded-r</code>,
+        <code>rounded-b</code>, <code>rounded-l</code>, <code>rounded-tl</code>,
+        <code>rounded-tr</code>, <code>rounded-bl</code>,
+        <code>rounded-br</code>.
+      </li>
+      <li><code>translate-x</code> and <code>translate-y</code></li>
+      <li><code>text-stroke</code></li>
+      <li><code>stroke</code></li>
+      <li><code>leading</code></li>
+      <li><code>tracking</code></li>
+      <li>
+        <code>border</code> including <code>border-t</code>,
+        <code>border-b</code>, <code>border-l</code>, <code>border-r</code>,
+        <code>border-x</code>, <code>border-y</code>.
+      </li>
+      <li>
+        <code>scroll-m</code> including <code>scroll-mx</code>,
+        <code>scroll-my</code>, <code>scroll-ms</code>, <code>scroll-me</code>,
+        <code>scroll-mt</code>, <code>scroll-mb</code>, <code>scroll-ml</code>,
+        <code>scroll-mr</code>
+      </li>
+      <li>
+        <code>scroll-p</code> including <code>scroll-px</code>,
+        <code>scroll-py</code>, <code>scroll-ps</code>, <code>scroll-pe</code>,
+        <code>scroll-pt</code>, <code>scroll-pb</code>, <code>scroll-pl</code>,
+        <code>scroll-pr</code>
+      </li>
+    </ul>
+
+    <div class="border-t border-white clamp-[mt,8,10] clamp-[pt,4,6]">
+      Made by <a href="https://www.nicolascusan.com">Nicolas Cusan</a>
     </div>
+    <script src="/script.js"></script>
   </body>
 </html>
