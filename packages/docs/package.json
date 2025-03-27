@@ -1,0 +1,27 @@
+{
+  "name": "docs",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "generate:readme": "node scripts/generate-readme.js"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^4.2.1",
+    "@mdx-js/mdx": "^3.1.0",
+    "@tailwindcss/typography": "^0.5.16",
+    "@tailwindcss/vite": "^4.0.17",
+    "astro": "^5.5.4",
+    "gray-matter": "^4.0.3",
+    "tailwindcss": "^4.0.17",
+    "unist-util-visit": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.13",
+    "@types/unist": "^3.0.3"
+  }
+}

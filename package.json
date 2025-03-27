@@ -1,48 +1,18 @@
 {
-  "name": "tailwind-clamp",
-  "version": "4.0.6",
-  "description": "Tailwind CSS plugin to use CSS clamp in your projects",
-  "main": "dist/index.umd.cjs",
-  "module": "dist/index.js",
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.umd.cjs"
-    }
-  },
-  "files": [
-    "/dist"
+  "name": "tailwind-clamp-monorepo",
+  "private": true,
+  "workspaces": [
+    "packages/*"
   ],
-  "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "build:docs": "vite build --config vite.config.docs.js",
-    "build:all": "npm run build && npm run build:docs",
-    "preview": "vite preview"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nicolas-cusan/tailwind-clamp.git"
-  },
-  "keywords": [
-    "tailwind",
-    "css",
-    "clamp"
-  ],
-  "author": "Nicolas Cusan",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/nicolas-cusan/tailwind-clamp/issues"
-  },
-  "homepage": "https://github.com/nicolas-cusan/tailwind-clamp#readme",
-  "dependencies": {
-    "@csstools/css-calc": "^2.1.2",
-    "tailwindcss": "^4.0.15"
+    "dev": "pnpm --filter tailwind-clamp dev",
+    "build": "pnpm --filter tailwind-clamp build",
+    "docs:dev": "pnpm --filter docs dev",
+    "docs:build": "pnpm --filter docs build",
+    "docs:generate": "pnpm --filter docs generate",
+    "build:all": "pnpm run build && pnpm run docs:build && pnpm run docs:generate"
   },
   "devDependencies": {
-    "@fontsource/jetbrains-mono": "^5.2.5",
-    "@tailwindcss/vite": "^4.0.15",
-    "vite": "^6.2.3"
+    "prettier": "^3.5.3"
   }
 }
