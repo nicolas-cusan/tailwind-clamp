@@ -1,8 +1,6 @@
 # Tailwind clamp 🗜️
 
-Tailwind CSS plugin to use CSS `clamp` in your project. Enabling fluid interfaces using Tailwind syntax.
-
-The plugin is based on the formula presented in this [article](https://chriskirknielsen.com/blog/modern-fluid-typography-with-clamp/)
+Leverage the the CSS `clamp` function in your [Tailwind CSS](https://tailwindcss.com/) project.
 
 ## Features
 
@@ -28,7 +26,7 @@ npm i tailwind-clamp
 Add the plugin in your main CSS file:
 
 ```css
-@import 'tailwindcss';
+@import "tailwindcss";
 @plugin "tailwind-clamp";
 ```
 
@@ -106,3 +104,13 @@ clamp-[<property>,<start>,<end>,[minSize,maxSize]]
 - `border` including `border-t`, `border-b`, `border-l`, `border-r`, `border-x`, `border-y`.
 - `scroll-m` including `scroll-mx`, `scroll-my`, `scroll-ms`, `scroll-me`, `scroll-mt`, `scroll-mb`, `scroll-ml`, `scroll-mr`
 - `scroll-p` including `scroll-px`, `scroll-py`, `scroll-ps`, `scroll-pe`, `scroll-pt`, `scroll-pb`, `scroll-pl`, `scroll-pr`
+
+## Credits & mentions
+
+The plugin is based on the formula presented in this [article](https://chriskirknielsen.com/blog/modern-fluid-typography-with-clamp/).
+
+See also [fluid.tw](https://fluid.tw/) by [Max Barvian](https://barvian.me/).
+
+## License
+
+MIT

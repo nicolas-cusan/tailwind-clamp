@@ -7,11 +7,14 @@ import BtnList from '../components/BtnList.astro';
 
 # Tailwind clamp 🗜️
 
-<div class="clamp-[text,lg,xl] [&>p>a]:no-underline">
-  Levereage the the CSS `clamp` function in your [Tailwind CSS](https://tailwindcss.com/) project.
-</div>
+<Conditional target="md">
+  Leverage the the CSS `clamp` function in your [Tailwind CSS](https://tailwindcss.com/) project.
+</Conditional>
 
 <Conditional target="astro">
+  <div class="clamp-[text,lg,xl] [&>p>a]:no-underline">
+    Leverage the the CSS `clamp` function in your [Tailwind CSS](https://tailwindcss.com/) project.
+  </div>
   <BtnList />
 </Conditional>
 

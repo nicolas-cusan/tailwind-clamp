@@ -8,7 +8,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "generate:readme": "node scripts/generate-readme.js"
+    "generate": "node scripts/generate-readme.js"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.2.1",
