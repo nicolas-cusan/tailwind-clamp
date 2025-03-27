@@ -1,6 +1,8 @@
 ---
 import '../styles/global.css';
 import GitHub from '../icons/github.svg';
+import { SEO } from 'astro-seo';
+
 interface Props {
   title: string;
 }
@@ -14,8 +16,31 @@ const { title } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="description" content="Tailwind CSS plugin to use CSS clamp in your projects" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
+
+    <SEO
+      title={title}
+      description="Tailwind CSS plugin to use CSS clamp in your projects"
+
+      twitter={{
+        creator: '@n_cusan',
+      }}
+      extend={{
+        link: [
+          { rel: 'icon', href: '/favicon.ico' },
+          { rel: 'icon', href: '/icon.svg', type: 'image/svg+xml' },
+          { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
+          { rel: 'manifest', href: '/manifest.webmanifest' },
+        ],
+
+        meta: [
+          { name: 'theme-color', content: '#000' },
+          { name: 'generator', content: Astro.generator },
+          { name: 'twitter:title', content: title },
+
+        ],
+      }}
+    />
+
     <link rel="preconnect" href="https://rsms.me/" />
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
