@@ -1,4 +1,4 @@
-# Tailwind clamp 🗜️
+# [Tailwind clamp 🗜️](https://nicolas-cusan.github.io/tailwind-clamp/)
 
 Leverage the the CSS `clamp` function in your [Tailwind CSS](https://tailwindcss.com/) project.
 
@@ -34,10 +34,10 @@ Add the plugin in your main CSS file:
 
 The plugin allows two configuration options:
 
-| Name          | Type       | Description                                        | Default value |
-| ------------- | ---------- | -------------------------------------------------- | ------------- |
-| **`minSize`** | `{string}` | Viewport or container size where the clamp starts. | `23.4375rem`  |
-| **`maxSize`** | `{string}` | Viewport or container size where the clamp end.    | `90rem`       |
+| Name          | Type       | Description                           | Default value |
+| ------------- | ---------- | ------------------------------------- | ------------- |
+| **`minSize`** | `{string}` | Viewport size where the clamp starts. | `23.4375rem`  |
+| **`maxSize`** | `{string}` | Viewport size where the clamp end.    | `90rem`       |
 
 Value should be a css length (`px`, `rem`, `em`). The unit for both options need to match.
 
@@ -62,8 +62,8 @@ clamp-[<property>,<start>,<end>,[minSize,maxSize]]
 - **`property`** Property that the value should be applied to. See a list of all supported properties below.
 - **`start`** Value at `minSize` viewport size. It can be a key from your Tailwind CSS config file or a a css length (`px`, `rem`, `em`), the unit will need to match `end`.
 - **`end`** Value at `maxSize` viewport size. It can be a key from your Tailwind CSS config file or a css length (`px`, `rem`, `em`), the unit will need to match `start`.
-- **`[minSize=23.4375rem]`** Viewport or container size, where the clamp starts, defaults to `23.4375rem` (`375px`). It can be a breakpoint name from your theme or a css length (`px`, `rem`, `em`), the unit will need to match `maxSize` and be smaller than `maxSize`.
-- **`[maxSize=90rem]`** Viewport or container size, where the clamp stops, defaults to `90rem` (`1440px`). It can be a breakpoint name from your theme or a css length (`px`, `rem`, `em`), the unit will need to match `minSize` and be be larger than `minSize`.
+- **`[minSize=23.4375rem]`** Viewport or container size, where the clamp starts, defaults to `23.4375rem` (`375px`). It can be a breakpoint or container size name from your theme or a css length (`px`, `rem`, `em`). Container size names _and values_ are prefixed with `@`. The unit will need to match `maxSize` and be smaller than `maxSize`.
+- **`[maxSize=90rem]`** Viewport or container size, where the clamp stops, defaults to `90rem` (`1440px`). It can be a breakpoint or container size name from your theme or a css length (`px`, `rem`, `em`). Container size names _and values_ are prefixed with `@`. The unit will need to match `minSize` and be be larger than `minSize`.
 
 ### Examples
 
