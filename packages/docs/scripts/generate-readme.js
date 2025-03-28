@@ -27,8 +27,10 @@ export async function processMDX() {
 
 export async function generateREADME() {
   const content = await processMDX();
-  const readmePath = path.join(process.cwd(), '../../README.md');
-  fs.writeFileSync(readmePath, String(content));
+  const rootPath = path.join(process.cwd(), '../../README.md');
+  const packagePath = path.join(process.cwd(), '../tailwind-clamp/README.md');
+  fs.writeFileSync(rootPath, String(content));
+  fs.writeFileSync(packagePath, String(content));
 }
 
 export default generateREADME();
