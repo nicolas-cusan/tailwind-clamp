@@ -1,9 +1,6 @@
 {
-  "name": "tailwind-clamp-monorepo",
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
+  "type": "module",
   "scripts": {
     "dev": "pnpm --filter tailwind-clamp dev",
     "build": "pnpm --filter tailwind-clamp build",
@@ -14,6 +11,5 @@
   },
   "devDependencies": {
     "prettier": "^3.5.3"
-  },
-  "version": "0.0.1"
+  }
 }
