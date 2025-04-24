@@ -77,7 +77,7 @@ clamp-[<property>,<start>,<end>,[minSize,maxSize]]
 
 ### Arguments
 
-- **`property`** Property that the value should be applied to. See a list of all supported properties below.
+- **`property`** Property that the value should be applied to. See a list of all [supported properties below](#supported-properties).
 - **`start`** Value at `minSize` viewport size. It can be a key from your Tailwind CSS config file or a a css length (`px`, `rem`, `em`), the unit will need to match `end`.
 - **`end`** Value at `maxSize` viewport size. It can be a key from your Tailwind CSS config file or a css length (`px`, `rem`, `em`), the unit will need to match `start`.
 - **`[minSize=23.4375rem]`** Viewport or container size, where the clamp starts, defaults to `23.4375rem` (`375px`). It can be a breakpoint or container size name from your theme or a css length (`px`, `rem`, `em`). Container size names _and values_ are prefixed with `@`. The unit will need to match `maxSize` and be smaller than `maxSize`.
@@ -94,6 +94,16 @@ clamp-[<property>,<start>,<end>,[minSize,maxSize]]
   <div class="clamp-[text,lg,3xl,@sm,@5xl] clamp-[py,2,4,@29.5rem,@82rem]">
     Add some fluid typography and padding to the content of the container.
   </div>
+</div>
+```
+
+### Note on spacing and sizing properties
+
+All spacing and sizing properties (`p`, `m`, `w`, etc.) accept unitless numbers and .5 floating numbers that will get multiplied by the `--spacing` variable, analog to how Tailwind CSS handles spacing values.
+
+```html
+<div class="clamp-[p,1,2]">
+  This will generate a `padding` value of `1rem` at `minSize` and `2rem` at `maxSize`.
 </div>
 ```
 
