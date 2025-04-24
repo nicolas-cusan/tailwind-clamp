@@ -125,23 +125,22 @@ export default plugin.withOptions(function (options = {}) {
           if (type === 'spacing') {
             const spacing = parseValue(theme('spacing.1'));
 
-            const startNegative = args[1].startsWith('-');
-            const endNegative = args[2].startsWith('-');
+            const startIsUnitless = !isNaN(args[1]) && /^\d+$/.test(args[1]);
+            const endIsUnitless = !isNaN(args[2]) && /^\d+$/.test(args[2]);
 
-            const startVal = startNegative ? args[1].slice(1) : args[1];
-            const endVal = endNegative ? args[2].slice(1) : args[2];
+            if (startIsUnitless) {
+              start = {
+                number: spacing.number * start.number,
+                unit: spacing.unit,
+              };
+            }
 
-            start = {
-              number: spacing.number * startVal,
-              unit: spacing.unit,
-            };
-            end = {
-              number: spacing.number * endVal,
-              unit: spacing.unit,
-            };
-
-            if (startNegative) start.number = start.number * -1;
-            if (endNegative) end.number = end.number * -1;
+            if (endIsUnitless) {
+              end = {
+                number: spacing.number * end.number,
+                unit: spacing.unit,
+              };
+            }
           }
 
           if (!validateValues(start, end, value)) {
