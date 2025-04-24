@@ -125,19 +125,19 @@ export default plugin.withOptions(function (options = {}) {
           if (type === 'spacing') {
             const spacing = parseValue(theme('spacing.1'));
 
-            const startIsUnitless = !isNaN(args[1]) && /^\d+$/.test(args[1]);
-            const endIsUnitless = !isNaN(args[2]) && /^\d+$/.test(args[2]);
+            const startIsUnitless = /^\d+$/.test(args[1]);
+            const endIsUnitless = /^\d+$/.test(args[2]);
 
             if (startIsUnitless) {
               start = {
-                number: spacing.number * start.number,
+                number: spacing.number * parseFloat(args[1]),
                 unit: spacing.unit,
               };
             }
 
             if (endIsUnitless) {
               end = {
-                number: spacing.number * end.number,
+                number: spacing.number * parseFloat(args[2]),
                 unit: spacing.unit,
               };
             }

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="clamp-[text,base,xl] bg-stone-200">
+<html lang="en" class="bg-stone-200">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -18,12 +18,16 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/1c-light.min.css"
     />
   </head>
-  <body class="">
+  <body class="clamp-[text,base,xl]">
     <h1
       id="tailwind-clamp"
       class="clamp-[w,3rem,6.25rem] clamp-[m,-0.3rem,-0.625rem]"
     >
       Tailwind clamp 🗜️
     </h1>
+
+    <div class="bg-red-600 clamp-[size,10,20]"></div>
+
+    <div class="bg-green-600 size-10"></div>
   </body>
 </html>
