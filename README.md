@@ -44,9 +44,9 @@ Value should be a css length (`px`, `rem`, `em`). The unit for both options need
 ```css
 @import "tailwindcss";
 @plugin "tailwind-clamp" {
-  minSize: 25rem,
-  maxSize: 80rem
-};
+  minSize: 25rem;
+  maxSize: 80rem;
+}
 ```
 
 ## Usage
