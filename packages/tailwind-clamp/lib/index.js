@@ -128,8 +128,6 @@ export default plugin.withOptions(function (options = {}) {
             const startIsUnitless = /^-?\d*\.?\d+$/.test(args[1]);
             const endIsUnitless = /^-?\d*\.?\d+$/.test(args[2]);
 
-            console.log(startIsUnitless, endIsUnitless, value);
-
             if (startIsUnitless) {
               start = {
                 number: spacing.number * parseFloat(args[1]),
