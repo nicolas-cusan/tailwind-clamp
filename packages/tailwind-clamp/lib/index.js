@@ -125,8 +125,10 @@ export default plugin.withOptions(function (options = {}) {
           if (type === 'spacing') {
             const spacing = parseValue(theme('spacing.1'));
 
-            const startIsUnitless = /^-?\d+$/.test(args[1]);
-            const endIsUnitless = /^-?\d+$/.test(args[2]);
+            const startIsUnitless = /^-?\d*\.?\d+$/.test(args[1]);
+            const endIsUnitless = /^-?\d*\.?\d+$/.test(args[2]);
+
+            console.log(startIsUnitless, endIsUnitless, value);
 
             if (startIsUnitless) {
               start = {
