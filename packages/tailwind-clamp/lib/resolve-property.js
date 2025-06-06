@@ -427,7 +427,7 @@ export const resolveProperty = (name) => {
 
     case 'underline-offset':
       return {
-        type: 'spacing',
+        type: 'regular',
         key: 'textUnderlineOffset',
         props: ['textUnderlineOffset'],
       };
