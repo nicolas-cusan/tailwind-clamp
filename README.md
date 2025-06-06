@@ -26,7 +26,7 @@ npm i tailwind-clamp
 Add the plugin in your main CSS file:
 
 ```css
-@import "tailwindcss";
+@import 'tailwindcss';
 @plugin "tailwind-clamp";
 ```
 
@@ -42,10 +42,10 @@ The plugin allows two configuration options:
 Value should be a css length (`px`, `rem`, `em`). The unit for both options need to match.
 
 ```css
-@import "tailwindcss";
+@import 'tailwindcss';
 @plugin "tailwind-clamp" {
-  minSize: 25rem;
-  maxSize: 80rem;
+  minsize: 25rem;
+  maxsize: 80rem;
 }
 ```
 
@@ -85,7 +85,8 @@ All spacing and sizing properties (`p`, `m`, `w`, etc.) accept unitless numbers 
 
 ```html
 <div class="clamp-[p,1,2]">
-  This will generate a `padding` value of `1rem` at `minSize` and `2rem` at `maxSize`.
+  This will generate a `padding` value of `1rem` at `minSize` and `2rem` at
+  `maxSize`.
 </div>
 ```
 
@@ -114,6 +115,8 @@ All spacing and sizing properties (`p`, `m`, `w`, etc.) accept unitless numbers 
 - `border` including `border-t`, `border-b`, `border-l`, `border-r`, `border-x`, `border-y`.
 - `scroll-m` including `scroll-mx`, `scroll-my`, `scroll-ms`, `scroll-me`, `scroll-mt`, `scroll-mb`, `scroll-ml`, `scroll-mr`
 - `scroll-p` including `scroll-px`, `scroll-py`, `scroll-ps`, `scroll-pe`, `scroll-pt`, `scroll-pb`, `scroll-pl`, `scroll-pr`
+- `decoration`
+- `underline-offset`
 
 ## Credits & mentions
 
