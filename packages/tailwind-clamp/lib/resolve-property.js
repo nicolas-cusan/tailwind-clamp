@@ -425,6 +425,13 @@ export const resolveProperty = (name) => {
         ],
       };
 
+    case 'underline-offset':
+      return {
+        type: 'regular',
+        key: 'textUnderlineOffset',
+        props: ['textUnderlineOffset'],
+      };
+
     // Border & Stroke
     case 'stroke':
       return {
@@ -494,6 +501,13 @@ export const resolveProperty = (name) => {
         type: 'regular',
         key: 'borderWidth',
         props: ['borderBlockWidth'],
+      };
+
+    case 'decoration':
+      return {
+        type: 'regular',
+        key: 'textDecorationThickness',
+        props: ['textDecorationThickness'],
       };
 
     // Border Radius
