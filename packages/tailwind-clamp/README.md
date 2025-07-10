@@ -114,6 +114,8 @@ All spacing and sizing properties (`p`, `m`, `w`, etc.) accept unitless numbers 
 - `border` including `border-t`, `border-b`, `border-l`, `border-r`, `border-x`, `border-y`.
 - `scroll-m` including `scroll-mx`, `scroll-my`, `scroll-ms`, `scroll-me`, `scroll-mt`, `scroll-mb`, `scroll-ml`, `scroll-mr`
 - `scroll-p` including `scroll-px`, `scroll-py`, `scroll-ps`, `scroll-pe`, `scroll-pt`, `scroll-pb`, `scroll-pl`, `scroll-pr`
+- `decoration`
+- `underline-offset`
 
 ## Credits & mentions
 
