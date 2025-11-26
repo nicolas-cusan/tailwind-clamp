@@ -123,7 +123,7 @@ export default plugin.withOptions(function (options = {}) {
 
           // Handle spacing values
           if (type === 'spacing') {
-            const spacing = parseValue(theme('spacing.1'));
+            const spacing = parseValue(theme('spacing'));
 
             const startIsUnitless = /^-?\d*\.?\d+$/.test(args[1]);
             const endIsUnitless = /^-?\d*\.?\d+$/.test(args[2]);
