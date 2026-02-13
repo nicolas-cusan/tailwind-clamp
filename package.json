@@ -1,6 +1,7 @@
 {
   "private": true,
   "type": "module",
+  "packageManager": "pnpm@10.24.0",
   "scripts": {
     "dev": "pnpm --filter tailwind-clamp dev",
     "build": "pnpm --filter tailwind-clamp build",
