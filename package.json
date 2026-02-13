@@ -7,9 +7,11 @@
     "docs:dev": "pnpm --filter docs dev",
     "docs:build": "pnpm --filter docs build",
     "docs:generate": "pnpm --filter docs generate",
-    "build:all": "pnpm run build && pnpm run docs:build && pnpm run docs:generate"
+    "build:all": "pnpm run build && pnpm run docs:build && pnpm run docs:generate",
+    "release": "pnpm --filter tailwind-clamp exec np"
   },
   "devDependencies": {
-    "prettier": "^3.5.3"
+    "np": "^11.0.2",
+    "prettier": "^3.8.1"
   }
 }

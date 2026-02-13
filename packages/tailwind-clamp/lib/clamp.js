@@ -56,30 +56,3 @@ export const clamp = (
 
   return negative ? `calc(${value} * -1)` : value;
 };
-
-// const defaultOptions = {
-//   unit: 'rem',
-//   minViewportWidth: '23.4375rem',
-//   maxViewportWidth: '90rem',
-// };
-
-// export const clampValue = (
-//   start,
-//   end,
-//   options = {
-//     unit: 'rem',
-//     minViewportWidth: '23.4375rem',
-//     maxViewportWidth: '90rem',
-//   }
-// ) => {
-//   const o = { ...defaultOptions, ...options };
-
-//   const convert = (val) => (o.unit === 'rem' ? val / 16 : val);
-
-//   return clamp(
-//     { number: convert(start), unit: o.unit },
-//     { number: convert(end), unit: o.unit },
-//     { number: convert(o.minViewportWidth), unit: o.unit },
-//     { number: convert(o.maxViewportWidth), unit: o.unit }
-//   );
-// };

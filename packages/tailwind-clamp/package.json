@@ -1,11 +1,13 @@
 {
   "name": "tailwind-clamp",
   "version": "4.1.2",
-  "description": "Plugin to leverage the the CSS clamp function in your Tailwind CSS project.",
+  "description": "Plugin to leverage the CSS clamp function in your Tailwind CSS project.",
   "main": "dist/index.umd.cjs",
   "module": "dist/index.js",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.umd.cjs"
     }
@@ -17,8 +19,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "build:docs": "vite build --config vite.config.docs.js",
-    "preview": "vite preview"
+    "test": "vitest run",
+    "preview": "vite preview",
+    "prepublishOnly": "vite build"
   },
   "repository": {
     "type": "git",
@@ -35,13 +38,15 @@
     "url": "https://github.com/nicolas-cusan/tailwind-clamp/issues"
   },
   "homepage": "https://github.com/nicolas-cusan/tailwind-clamp#readme",
-  "dependencies": {
-    "@csstools/css-calc": "^2.1.3",
-    "tailwindcss": "^4.1.7"
+  "peerDependencies": {
+    "tailwindcss": "^4.0.0"
   },
   "devDependencies": {
+    "@csstools/css-calc": "^2.1.3",
     "@fontsource/jetbrains-mono": "^5.2.5",
     "@tailwindcss/vite": "^4.1.7",
-    "vite": "^6.3.5"
+    "tailwindcss": "^4.1.7",
+    "vite": "^6.3.5",
+    "vitest": "^4.0.18"
   }
 }
