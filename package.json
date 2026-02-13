@@ -9,7 +9,7 @@
     "docs:build": "pnpm --filter docs build",
     "docs:generate": "pnpm --filter docs generate",
     "build:all": "pnpm run build && pnpm run docs:build && pnpm run docs:generate",
-    "release": "cd packages/tailwind-clamp && pnpm exec np"
+    "release": "./scripts/release.sh"
   },
   "devDependencies": {
     "np": "^11.0.2",

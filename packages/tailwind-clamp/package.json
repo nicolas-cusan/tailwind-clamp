@@ -1,6 +1,6 @@
 {
   "name": "tailwind-clamp",
-  "version": "4.2.0",
+  "version": "4.2.1",
   "description": "Plugin to leverage the CSS clamp function in your Tailwind CSS project.",
   "main": "dist/index.umd.cjs",
   "module": "dist/index.js",
