@@ -18,10 +18,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && cp lib/index.d.ts dist/index.d.ts",
     "test": "vitest run",
     "preview": "vite preview",
-    "prepublishOnly": "vite build"
+    "prepublishOnly": "pnpm run build"
   },
   "repository": {
     "type": "git",
