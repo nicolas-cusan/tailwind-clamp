@@ -117,6 +117,41 @@ All spacing and sizing properties (`p`, `m`, `w`, etc.) accept unitless numbers 
 - `decoration`
 - `underline-offset`
 
+## Usage with tailwind-merge
+
+If you use [tailwind-merge](https://github.com/dcastil/tailwind-merge) to resolve conflicting Tailwind classes, install the `tailwind-clamp-merge` plugin so that clamp utilities are correctly merged with their static counterparts:
+
+```sh
+npm i tailwind-clamp-merge
+```
+
+```js
+
+const twMerge = extendTailwindMerge(withTailwindClamp);
+```
+
+This teaches tailwind-merge that `clamp-[p,1,3]` belongs to the same class group as `p-4`, so conflicts are resolved correctly:
+
+```js
+twMerge('p-4 clamp-[p,1,3]')
+// => 'clamp-[p,1,3]'
+
+twMerge('clamp-[p,1,3] p-4')
+// => 'p-4'
+
+twMerge('text-lg clamp-[text,lg,3xl]')
+// => 'clamp-[text,lg,3xl]'
+
+// Hierarchical conflicts work too
+twMerge('px-4 py-2 clamp-[p,1,3]')
+// => 'clamp-[p,1,3]'
+
+twMerge('w-4 h-8 clamp-[size,10,20]')
+// => 'clamp-[size,10,20]'
+```
+
+All supported properties and their conflict hierarchies (e.g. `p` vs `px`/`py`, `size` vs `w`/`h`, `rounded` vs `rounded-tl`, `border` vs `border-t`) are handled automatically.
+
 ## Credits & mentions
 
 The plugin is based on the formula presented in this [article](https://chriskirknielsen.com/blog/modern-fluid-typography-with-clamp/).

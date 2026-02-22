@@ -9,17 +9,24 @@
 ```
 /
 ├── packages/
-│   ├── tailwind-clamp/   # The npm-published plugin
-│   │   ├── lib/          # Source code (JS)
-│   │   │   └── __tests__/ # Vitest unit tests
-│   │   ├── dist/         # Vite library build output (ESM + UMD + .d.ts)
-│   │   ├── index.html    # Dev playground
-│   │   └── style.css     # Dev playground styles
-│   └── docs/             # Astro documentation site (deployed to GitHub Pages)
+│   ├── tailwind-clamp/        # The npm-published plugin
+│   │   ├── lib/               # Source code (JS)
+│   │   │   └── __tests__/     # Vitest unit tests
+│   │   ├── dist/              # Vite library build output (ESM + UMD + .d.ts)
+│   │   ├── index.html         # Dev playground
+│   │   └── style.css          # Dev playground styles
+│   ├── tailwind-clamp-merge/  # tailwind-merge plugin for clamp utilities
+│   │   ├── lib/               # Source code (JS)
+│   │   │   ├── index.js       # Exports withTailwindClamp() for extendTailwindMerge
+│   │   │   ├── mapping.js     # Property-to-group mapping (88 entries)
+│   │   │   └── __tests__/     # Vitest unit tests (50 tests)
+│   │   ├── playground/        # Interactive browser demo
+│   │   └── dist/              # Vite library build output (ESM + UMD + .d.ts)
+│   └── docs/                  # Astro documentation site (deployed to GitHub Pages)
 │       └── scripts/generate-readme.js  # Generates root README.md from docs.mdx
 ├── .github/workflows/deploy.yml  # GitHub Pages deployment
 ├── pnpm-workspace.yaml
-└── package.json          # Root workspace
+└── package.json               # Root workspace
 ```
 
 - **Package manager**: pnpm with workspaces
@@ -33,6 +40,9 @@
 pnpm run dev          # Vite dev server for plugin playground
 pnpm run build        # Build plugin to dist/ (ESM + UMD)
 pnpm run test         # Run vitest unit tests (71 tests)
+pnpm run merge:dev    # Vite dev server for tailwind-clamp-merge playground
+pnpm run merge:build  # Build tailwind-clamp-merge to dist/
+pnpm run merge:test   # Run tailwind-clamp-merge tests (50 tests)
 pnpm run docs:dev     # Astro dev server for docs site
 pnpm run docs:build   # Build docs site
 pnpm run docs:generate # Generate README.md files from docs.mdx
@@ -70,6 +80,15 @@ Vite builds `lib/index.js` into:
 - `tailwindcss` is a **peerDependency** (`^4.0.0`) — consumers must install it themselves
 - `@csstools/css-calc` is a **devDependency** — bundled into dist by Vite, not needed at runtime
 - Exports include `types` condition for TypeScript resolution
+
+## tailwind-clamp-merge (`packages/tailwind-clamp-merge/lib/`)
+
+| File         | Purpose                                                              |
+| ------------ | -------------------------------------------------------------------- |
+| `index.js`   | Exports `withTailwindClamp()` plugin for `extendTailwindMerge`       |
+| `mapping.js` | Maps 88 clamp property shorthands to tailwind-merge class group IDs  |
+
+Extends tailwind-merge's built-in class groups with validators for `clamp-[prop,...]` patterns. This means all existing conflict resolution (hierarchy, shorthand vs specific) works automatically. `tailwind-merge` is a **peerDependency** (`^3.0.0`).
 
 ## Docs Site
 

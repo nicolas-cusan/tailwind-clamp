@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>tailwind-clamp-merge playground</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="min-h-screen bg-gray-950 text-gray-100 flex items-center justify-center p-8">
+    <div class="w-full max-w-2xl space-y-8">
+      <div>
+        <h1 class="text-2xl font-bold mb-1">tailwind-clamp-merge</h1>
+        <p class="text-gray-400 text-sm">
+          Type class strings to see how tailwind-merge resolves conflicts with
+          clamp utilities.
+        </p>
+      </div>
+
+      <div class="space-y-3">
+        <label for="input" class="block text-sm font-medium text-gray-300">
+          Class string
+        </label>
+        <input
+          id="input"
+          type="text"
+          placeholder="p-4 clamp-[p,1rem,2rem]"
+          class="w-full rounded-lg border border-gray-700 bg-gray-900 px-4 py-3 text-sm font-mono text-white placeholder-gray-600 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+        />
+      </div>
+
+      <div class="space-y-3">
+        <p class="text-sm font-medium text-gray-300">Merged output</p>
+        <div
+          id="output"
+          class="rounded-lg border border-gray-700 bg-gray-900 px-4 py-3 text-sm font-mono text-emerald-400 min-h-[3rem] flex items-center"
+        >
+          &mdash;
+        </div>
+      </div>
+
+      <div class="space-y-3">
+        <p class="text-sm font-medium text-gray-300">Presets</p>
+        <div class="flex flex-wrap gap-2" id="presets"></div>
+      </div>
+    </div>
+
+    <script type="module" src="main.js"></script>
+  </body>
+</html>

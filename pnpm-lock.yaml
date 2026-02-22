@@ -73,6 +73,24 @@ importers:
         specifier: ^4.0.18
         version: 4.0.18(@types/node@22.13.13)(jiti@2.4.2)(lightningcss@1.30.1)(yaml@2.7.0)
 
+  packages/tailwind-clamp-merge:
+    devDependencies:
+      '@tailwindcss/vite':
+        specifier: ^4.1.7
+        version: 4.1.7(vite@6.3.5(@types/node@22.13.13)(jiti@2.4.2)(lightningcss@1.30.1)(yaml@2.7.0))
+      tailwind-merge:
+        specifier: ^3.0.0
+        version: 3.4.0
+      tailwindcss:
+        specifier: ^4.1.7
+        version: 4.1.7
+      vite:
+        specifier: ^6.3.5
+        version: 6.3.5(@types/node@22.13.13)(jiti@2.4.2)(lightningcss@1.30.1)(yaml@2.7.0)
+      vitest:
+        specifier: ^4.0.18
+        version: 4.0.18(@types/node@22.13.13)(jiti@2.4.2)(lightningcss@1.30.1)(yaml@2.7.0)
+
 packages:
 
   '@ampproject/remapping@2.3.0':
@@ -3000,6 +3018,9 @@ packages:
   tagged-tag@1.0.0:
     resolution: {integrity: sha512-yEFYrVhod+hdNyx7g5Bnkkb0G6si8HJurOoOEgC8B/O0uXLHlaey/65KRv6cuWBNhBgHKAROVpc7QyYqE5gFng==}
     engines: {node: '>=20'}
+
+  tailwind-merge@3.4.0:
+    resolution: {integrity: sha512-uSaO4gnW+b3Y2aWoWfFpX62vn2sR3skfhbjsEnaBI81WD1wBLlHZe5sWf0AqjksNdYTbGBEd0UasQMT3SNV15g==}
 
   tailwindcss@4.1.7:
     resolution: {integrity: sha512-kr1o/ErIdNhTz8uzAYL7TpaUuzKIE6QPQ4qmSdxnoX/lo+5wmUHQA6h3L5yIqEImSRnAAURDirLu/BgiXGPAhg==}
@@ -6932,6 +6953,8 @@ snapshots:
   system-architecture@0.1.0: {}
 
   tagged-tag@1.0.0: {}
+
+  tailwind-merge@3.4.0: {}
 
   tailwindcss@4.1.7: {}
 
