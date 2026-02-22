@@ -1,6 +1,6 @@
 {
   "name": "tailwind-clamp-merge",
-  "version": "1.0.0",
+  "version": "4.2.1",
   "description": "tailwind-merge plugin for tailwind-clamp utilities",
   "main": "dist/index.umd.cjs",
   "module": "dist/index.js",
