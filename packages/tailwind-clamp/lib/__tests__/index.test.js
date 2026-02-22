@@ -209,6 +209,122 @@ describe('clamp', () => {
 });
 
 // ---------------------------------------------------------------------------
+// custom properties — integration with clamp + parseValue
+// ---------------------------------------------------------------------------
+
+describe('custom properties integration', () => {
+  const defaultMinVw = { number: 23.4375, unit: 'rem' };
+  const defaultMaxVw = { number: 90, unit: 'rem' };
+
+  it('produces valid clamp output for values used as custom properties', () => {
+    const start = parseValue('2rem');
+    const end = parseValue('6rem');
+    const result = clamp(start, end, defaultMinVw, defaultMaxVw);
+    expect(result).toMatch(/^clamp\(2rem,/);
+    expect(result).toMatch(/6rem\)$/);
+  });
+
+  it('works with px values for custom properties', () => {
+    const start = parseValue('16px');
+    const end = parseValue('48px');
+    const result = clamp(start, end, defaultMinVw, defaultMaxVw);
+    expect(result).toMatch(/^clamp\(16px,/);
+    expect(result).toMatch(/48px\)$/);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// theme variable definitions — simulates the @theme { --clamp-*: ... } flow
+// ---------------------------------------------------------------------------
+
+describe('theme variable definitions', () => {
+  const defaultMinVw = { number: 23.4375, unit: 'rem' };
+  const defaultMaxVw = { number: 90, unit: 'rem' };
+
+  // Mirrors the isLengthValue check in index.js
+  const isLengthValue = (v) =>
+    /^-?\d*\.?\d+(px|rem|em)$/.test(v.trim()) || v.trim() === '0';
+
+  describe('isLengthValue detection', () => {
+    it('detects rem values', () => {
+      expect(isLengthValue('2rem')).toBe(true);
+    });
+
+    it('detects px values', () => {
+      expect(isLengthValue('16px')).toBe(true);
+    });
+
+    it('detects em values', () => {
+      expect(isLengthValue('1.5em')).toBe(true);
+    });
+
+    it('detects zero', () => {
+      expect(isLengthValue('0')).toBe(true);
+    });
+
+    it('detects negative values', () => {
+      expect(isLengthValue('-2rem')).toBe(true);
+    });
+
+    it('detects decimal values', () => {
+      expect(isLengthValue('.5rem')).toBe(true);
+    });
+
+    it('trims whitespace', () => {
+      expect(isLengthValue(' 2rem ')).toBe(true);
+    });
+
+    it('rejects property names', () => {
+      expect(isLengthValue('p')).toBe(false);
+      expect(isLengthValue('text')).toBe(false);
+      expect(isLengthValue('gap-x')).toBe(false);
+    });
+
+    it('rejects unitless non-zero numbers', () => {
+      expect(isLengthValue('42')).toBe(false);
+    });
+  });
+
+  describe('2-value theme variables (start, end)', () => {
+    it('computes clamp from parsed theme value', () => {
+      const value = '2rem, 6rem';
+      const args = value.split(',').map((s) => s.trim());
+      const start = parseValue(args[0]);
+      const end = parseValue(args[1]);
+      const result = clamp(start, end, defaultMinVw, defaultMaxVw);
+      expect(result).toMatch(/^clamp\(2rem,/);
+      expect(result).toMatch(/6rem\)$/);
+      expect(result).toContain('vw');
+    });
+
+    it('computes clamp for px theme values', () => {
+      const value = '16px, 48px';
+      const args = value.split(',').map((s) => s.trim());
+      const start = parseValue(args[0]);
+      const end = parseValue(args[1]);
+      const result = clamp(start, end, defaultMinVw, defaultMaxVw);
+      expect(result).toMatch(/^clamp\(16px,/);
+      expect(result).toMatch(/48px\)$/);
+    });
+  });
+
+  describe('4-value theme variables (start, end, minVw, maxVw)', () => {
+    it('uses custom viewport range', () => {
+      const value = '1rem, 3rem, 20rem, 80rem';
+      const args = value.split(',').map((s) => s.trim());
+      const start = parseValue(args[0]);
+      const end = parseValue(args[1]);
+      const minvw = parseValue(args[2]);
+      const maxvw = parseValue(args[3]);
+      const result = clamp(start, end, minvw, maxvw);
+      expect(result).toBe(
+        'clamp(1rem, 0.333333rem + 3.333333vw, 3rem)'
+      );
+    });
+  });
+});
+
+// ---------------------------------------------------------------------------
 // parse-value.js — parseValue
 // ---------------------------------------------------------------------------
 
@@ -624,6 +740,16 @@ describe('resolveProperty', () => {
         key: 'fontSize',
         props: ['fontSize'],
       });
+    });
+  });
+
+  describe('custom properties (--*)', () => {
+    it('returns null for custom properties (bypassed in index.js)', () => {
+      expect(resolveProperty('--blockspace')).toBeNull();
+    });
+
+    it('returns null for nested custom properties', () => {
+      expect(resolveProperty('--my-var')).toBeNull();
     });
   });
 

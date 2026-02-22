@@ -34,9 +34,77 @@ function getBreakpointValue(customValue, fallback, screens, containers) {
   };
 }
 
+const isLengthValue = (v) =>
+  /^-?\d*\.?\d+(px|rem|em)$/.test(v.trim()) || v.trim() === '0';
+
 export default plugin.withOptions(function (options = {}) {
   const o = { ...defaultOptions, ...options };
-  return function ({ matchUtilities, theme, config }) {
+  return function ({ matchUtilities, addBase, theme, config }) {
+    const clampTheme = theme('clamp') || {};
+
+    // Separate theme values into variable definitions vs utility shortcuts
+    const utilityValues = {};
+    const variableDefinitions = {};
+
+    for (const [name, value] of Object.entries(clampTheme)) {
+      const firstArg = value.split(',')[0];
+      if (isLengthValue(firstArg)) {
+        variableDefinitions[name] = value;
+      } else {
+        utilityValues[name] = value;
+      }
+    }
+
+    // Process variable definitions → inject as computed CSS custom properties
+    if (Object.keys(variableDefinitions).length > 0) {
+      const screens = theme('screens');
+      const containers = theme('containers');
+      const rootVars = {};
+
+      for (const [name, value] of Object.entries(variableDefinitions)) {
+        const args = value.split(',').map((s) => s.trim());
+
+        if (args.length < 2) {
+          log.error(
+            `Theme clamp variable "--clamp-${name}" requires at least 2 values (start, end).`
+          );
+          continue;
+        }
+
+        const start = parseValue(args[0]);
+        const end = parseValue(args[1]);
+
+        const minvw = getBreakpointValue(
+          args[2],
+          o.minSize,
+          screens,
+          containers
+        );
+        const maxvw = getBreakpointValue(
+          args[3],
+          o.maxSize,
+          screens,
+          containers
+        );
+
+        if (!validateValues(minvw, maxvw, `--clamp-${name}`)) continue;
+        if (!validateValues(start, end, `--clamp-${name}`)) continue;
+
+        const useContainer = minvw.isContainer;
+        rootVars[`--clamp-${name}`] = clamp(
+          start,
+          end,
+          minvw,
+          maxvw,
+          useContainer
+        );
+      }
+
+      if (Object.keys(rootVars).length > 0) {
+        addBase({ ':root': rootVars });
+      }
+    }
+
     matchUtilities(
       {
         clamp: (value) => {
@@ -71,7 +139,10 @@ export default plugin.withOptions(function (options = {}) {
           }
 
           const useContainer = minvw.isContainer;
-          const resolvedProp = resolveProperty(args[0]);
+          const isCustomProperty = args[0].startsWith('--');
+          const resolvedProp = isCustomProperty
+            ? { type: 'regular', key: null, props: [args[0]] }
+            : resolveProperty(args[0]);
 
           if (!resolvedProp) {
             log.error(
@@ -118,8 +189,8 @@ export default plugin.withOptions(function (options = {}) {
           }
 
           // Other values
-          let start = parseValue(config().theme[key][args[1]] || args[1]);
-          let end = parseValue(config().theme[key][args[2]] || args[2]);
+          let start = parseValue(key ? (config().theme[key]?.[args[1]] || args[1]) : args[1]);
+          let end = parseValue(key ? (config().theme[key]?.[args[2]] || args[2]) : args[2]);
 
           // Handle spacing values
           if (type === 'spacing') {
@@ -165,7 +236,7 @@ export default plugin.withOptions(function (options = {}) {
           return css;
         },
       },
-      { values: theme('clamp') },
+      { values: utilityValues },
       {
         supportsNegativeValues: false,
         modifiers: {

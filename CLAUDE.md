@@ -66,7 +66,7 @@ clamp-[property,startValue,endValue]
 clamp-[property,startValue,endValue,minViewport,maxViewport]
 ```
 
-Default viewport range: `23.4375rem` (375px) to `90rem` (1440px). Supports container queries via `@` prefix on viewport args.
+Default viewport range: `23.4375rem` (375px) to `90rem` (1440px). Supports container queries via `@` prefix on viewport args. Supports CSS custom properties (`--*`) as the target property (e.g. `clamp-[--blockspace,2rem,6rem]`) — only explicit CSS lengths accepted, no theme tokens or unitless numbers. Supports theme variable definitions via `@theme { --clamp-*: start, end[, minVw, maxVw]; }` — computed `clamp()` values are injected as CSS custom properties.
 
 ## Build Output
 

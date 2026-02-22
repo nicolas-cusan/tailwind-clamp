@@ -107,6 +107,83 @@ All spacing and sizing properties (`p`, `m`, `w`, etc.) accept unitless numbers 
 </div>
 ```
 
+### Custom properties
+
+You can use CSS custom properties (`--*`) as the target property to store a `clamp()` value in a CSS variable for reuse in `calc()` expressions or other properties.
+
+```
+clamp-[--variable-name,start,end]
+```
+
+Only explicit CSS lengths (`px`, `rem`, `em`) are accepted as values — theme tokens and unitless numbers are not supported for custom properties.
+
+#### Example
+
+```html
+<body class="clamp-[--blockspace,2rem,6rem]">
+  <header class="[--header-height:80px] fixed top-0">...</header>
+  <section class="mt-[calc(var(--header-height)+var(--blockspace))]">
+    Content with fluid spacing that accounts for the fixed header.
+  </section>
+</body>
+```
+
+### Theme variables
+
+You can define clamped values directly in your `@theme` block using the `--clamp-*` namespace. The plugin will compute the `clamp()` formula and inject the result as a CSS custom property.
+
+```css
+@theme {
+  --clamp-blockspace: 2rem, 6rem;
+  --clamp-display: 2rem, 4rem;
+}
+```
+
+You can also pass custom viewport breakpoints as the third and fourth values:
+
+```css
+@theme {
+  --clamp-narrow-space: 1rem, 3rem, 20rem, 80rem;
+}
+```
+
+Theme clamp variables can be referenced by other theme variables. This lets you use computed clamp values for built-in Tailwind theme tokens like font sizes, spacing, and more:
+
+```css
+@theme {
+  --clamp-blockspace: 2rem, 6rem;
+  --clamp-display: 2rem, 4rem;
+  --font-size-display: var(--clamp-display);
+  --spacing-section: var(--clamp-blockspace);
+}
+```
+
+With the above theme, you can use the standard Tailwind utilities directly:
+
+```html
+<h1 class="text-display">Fluid heading</h1>
+<section class="p-section">Fluid padding from the theme</section>
+```
+
+You can also reference the clamp variables directly in utilities using the `()` shorthand syntax:
+
+```html
+<section class="mt-(--clamp-blockspace)">
+  Content with fluid spacing defined in the theme.
+</section>
+```
+
+Or in custom CSS:
+
+```css
+.hero {
+  padding: var(--clamp-blockspace);
+  font-size: var(--clamp-display);
+}
+```
+
+Only explicit CSS lengths (`px`, `rem`, `em`) are accepted — unitless numbers and theme tokens are not supported in theme variable definitions.
+
 ## Supported properties
 
 - `p` including `pt`, `pb`, `pl`, `pr`, `px`, `py`, `ps`, `pe`.
@@ -134,6 +211,7 @@ All spacing and sizing properties (`p`, `m`, `w`, etc.) accept unitless numbers 
 - `scroll-p` including `scroll-px`, `scroll-py`, `scroll-ps`, `scroll-pe`, `scroll-pt`, `scroll-pb`, `scroll-pl`, `scroll-pr`
 - `decoration`
 - `underline-offset`
+- `--*` (CSS custom properties)
 
 ## Usage with tailwind-merge
 
