@@ -47,6 +47,7 @@ export default plugin.withOptions(function (options = {}) {
     const variableDefinitions = {};
 
     for (const [name, value] of Object.entries(clampTheme)) {
+      if (typeof value !== 'string') continue;
       const firstArg = value.split(',')[0];
       if (isLengthValue(firstArg)) {
         variableDefinitions[name] = value;
