@@ -67,7 +67,7 @@ export default plugin.withOptions(function (options = {}) {
 
         if (args.length < 2) {
           log.error(
-            `Theme clamp variable "--clamp-${name}" requires at least 2 values (start, end).`
+            `Theme clamp variable "--clamp-${name}" requires at least 2 values (start, end).`,
           );
           continue;
         }
@@ -79,13 +79,13 @@ export default plugin.withOptions(function (options = {}) {
           args[2],
           o.minSize,
           screens,
-          containers
+          containers,
         );
         const maxvw = getBreakpointValue(
           args[3],
           o.maxSize,
           screens,
-          containers
+          containers,
         );
 
         if (!validateValues(minvw, maxvw, `--clamp-${name}`)) continue;
@@ -97,7 +97,7 @@ export default plugin.withOptions(function (options = {}) {
           end,
           minvw,
           maxvw,
-          useContainer
+          useContainer,
         );
       }
 
@@ -113,7 +113,7 @@ export default plugin.withOptions(function (options = {}) {
 
           if (args.length < 3) {
             log.error(
-              `The clamp utility requires at least 3 arguments: "clamp-[${value}]".`
+              `The clamp utility requires at least 3 arguments: "clamp-[${value}]".`,
             );
             return {};
           }
@@ -125,14 +125,14 @@ export default plugin.withOptions(function (options = {}) {
             args[3],
             o.minSize,
             screens,
-            containers
+            containers,
           );
 
           const maxvw = getBreakpointValue(
             args[4],
             o.maxSize,
             screens,
-            containers
+            containers,
           );
 
           if (!validateValues(minvw, maxvw, value)) {
@@ -147,7 +147,7 @@ export default plugin.withOptions(function (options = {}) {
 
           if (!resolvedProp) {
             log.error(
-              `Property "${args[0]}" is not supported: "clamp-[${value}]".`
+              `Property "${args[0]}" is not supported: "clamp-[${value}]".`,
             );
             return {};
           }
@@ -157,10 +157,10 @@ export default plugin.withOptions(function (options = {}) {
           // handle fontSize separately
           if (type === 'fontSize') {
             const start = parseFontSizeValue(
-              config().theme[key][args[1]] || args[1]
+              config().theme[key][args[1]] || args[1],
             );
             const end = parseFontSizeValue(
-              config().theme[key][args[2]] || args[2]
+              config().theme[key][args[2]] || args[2],
             );
 
             const css = {};
@@ -179,7 +179,7 @@ export default plugin.withOptions(function (options = {}) {
                     end[k],
                     minvw,
                     maxvw,
-                    useContainer
+                    useContainer,
                   );
                   css[k] = val;
                 }
@@ -190,15 +190,19 @@ export default plugin.withOptions(function (options = {}) {
           }
 
           // Other values
-          let start = parseValue(key ? (config().theme[key]?.[args[1]] || args[1]) : args[1]);
-          let end = parseValue(key ? (config().theme[key]?.[args[2]] || args[2]) : args[2]);
+          let start = parseValue(
+            key ? config().theme[key]?.[args[1]] || args[1] : args[1],
+          );
+          let end = parseValue(
+            key ? config().theme[key]?.[args[2]] || args[2] : args[2],
+          );
 
           // Handle spacing values
           if (type === 'spacing') {
             const spacing = parseValue(
               typeof theme('spacing') === 'string'
                 ? theme('spacing')
-                : theme('spacing.1')
+                : theme('spacing.1'),
             );
 
             const startIsUnitless = /^-?\d*\.?\d+$/.test(args[1]);
@@ -243,7 +247,7 @@ export default plugin.withOptions(function (options = {}) {
         modifiers: {
           pattern: /[\w-]+(?:,[\w-]+){2}/, // Matches "text,lg,3xl" format
         },
-      }
+      },
     );
   };
 });
