@@ -11,7 +11,9 @@ function rehypeScrollableTables() {
         const wrapper = {
           type: 'element',
           tagName: 'div',
-          properties: { className: ['overflow-x-auto'] },
+          properties: {
+            className: ['overflow-auto clamp-[px,5,10] clamp-[mx,-5,-10]'],
+          },
           children: [node],
         };
         parent.children[index] = wrapper;
