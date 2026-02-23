@@ -18,6 +18,15 @@ export async function processMDX() {
       /<Conditional target="md">([\s\S]*?)<\/Conditional>/g,
       (_, content) => content.replace(/^  /gm, '')
     )
+    // Convert <Note> to GitHub alert syntax
+    .replace(
+      /<Note(?:\s+type="(\w+)")?\s*>\s*\n?([\s\S]*?)\s*<\/Note>/g,
+      (_, type, body) => {
+        const alertType = (type || 'note').toUpperCase();
+        const lines = body.trim().split('\n');
+        return `> [!${alertType}]\n${lines.map((l) => `> ${l}`).join('\n')}`;
+      }
+    )
     // Replace multiple empty lines with a single empty line
     .replace(/\n\s*\n\s*\n/g, '\n\n')
     // Remove import statements only if they're not inside code blocks

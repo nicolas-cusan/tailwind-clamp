@@ -1,0 +1,29 @@
+---
+import BtnList from './BtnList.astro';
+---
+
+<header class="clamp-[px,5,10] max-w-5xl mx-auto clamp-[py,8,18] relative">
+  <h1
+    class="font-bold clamp-[mb,2,3] tracking-[0.5em] text-center uppercase clamp-[text,0.65rem,0.75rem] font-mono"
+  >
+    Tailwind clamp
+  </h1>
+
+  <p
+    class="text-balance clamp-[text,3xl,5xl] tracking-tight text-center clamp-[mb,4,6] font-normal leading-[1.2] block"
+  >
+    Fluid interfaces.<br />From mobile to desktop.
+  </p>
+
+  <div
+    class="clamp-[text,lg,xl] leading-[1.5] [&>p>a]:no-underline text-center mx-auto max-w-3xl text-balance clamp-[mb,4,6]"
+  >
+    <a
+      href="https://tailwindcss.com/"
+      class="underline decoration-1 underline-offset-4 decoration-stone-400"
+      >Tailwind CSS</a
+    > plugin to build responsive interfaces that scale smoothly using CSS
+    <code>clamp()</code> without breakpoint micromanagement.
+  </div>
+  <BtnList />
+</header>

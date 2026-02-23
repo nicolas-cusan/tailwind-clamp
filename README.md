@@ -1,6 +1,6 @@
-# [Tailwind clamp 🗜️](https://nicolas-cusan.github.io/tailwind-clamp/)
+# [Tailwind clamp](https://nicolas-cusan.github.io/tailwind-clamp/)
 
-Leverage the the CSS `clamp` function in your [Tailwind CSS](https://tailwindcss.com/) project.
+Leverage the CSS `clamp` function in your [Tailwind CSS](https://tailwindcss.com/) project.
 
 ## Features
 
@@ -10,6 +10,8 @@ Leverage the the CSS `clamp` function in your [Tailwind CSS](https://tailwindcss
 - Supports `text` values with multiple properties (`fontSize`, `lineHeight`, `letterSpacing`). If `lineHeight` is definded as a unitless number or a `calc()` function, the resulting value is calculated and converted to the `fontSize` unit.
 - Supports using Tailwind CSS theme values, arbitrary values or a combination.
 - Supports container queries.
+- Supports CSS custom properties (`--*`) as the target property, to store `clamp()` values in variables for reuse.
+- Supports defining clamped theme variables via `@theme { --clamp-*: start, end; }`.
 
 ## Requirements
 
@@ -26,7 +28,7 @@ npm i tailwind-clamp
 Add the plugin in your main CSS file:
 
 ```css
-@import "tailwindcss";
+@import 'tailwindcss';
 @plugin "tailwind-clamp";
 ```
 
@@ -42,10 +44,10 @@ The plugin allows two configuration options:
 Value should be a css length (`px`, `rem`, `em`). The unit for both options need to match.
 
 ```css
-@import "tailwindcss";
+@import 'tailwindcss';
 @plugin "tailwind-clamp" {
-  minSize: 25rem;
-  maxSize: 80rem;
+  minsize: 25rem;
+  maxsize: 80rem;
 }
 ```
 
@@ -85,7 +87,8 @@ All spacing and sizing properties (`p`, `m`, `w`, etc.) accept unitless numbers 
 
 ```html
 <div class="clamp-[p,1,2]">
-  This will generate a `padding` value of `1rem` at `minSize` and `2rem` at `maxSize`.
+  This will generate a `padding` value of `1rem` at `minSize` and `2rem` at
+  `maxSize`.
 </div>
 ```
 
@@ -97,7 +100,8 @@ You can use CSS custom properties (`--*`) as the target property to store a `cla
 clamp-[--variable-name,start,end]
 ```
 
-Only explicit CSS lengths (`px`, `rem`, `em`) are accepted as values — theme tokens and unitless numbers are not supported for custom properties.
+> [!NOTE]
+> Only explicit CSS lengths (`px`, `rem`, `em`) are accepted as values — theme tokens and unitless numbers are not supported for custom properties.
 
 #### Example
 
@@ -164,7 +168,8 @@ Or in custom CSS:
 }
 ```
 
-Only explicit CSS lengths (`px`, `rem`, `em`) are accepted — unitless numbers and theme tokens are not supported in theme variable definitions.
+> [!NOTE]
+> Only explicit CSS lengths (`px`, `rem`, `em`) are accepted — unitless numbers and theme tokens are not supported in theme variable definitions.
 
 ## Supported properties
 
@@ -204,27 +209,26 @@ npm i tailwind-clamp-merge
 ```
 
 ```js
-
 const twMerge = extendTailwindMerge(withTailwindClamp);
 ```
 
 This teaches tailwind-merge that `clamp-[p,1,3]` belongs to the same class group as `p-4`, so conflicts are resolved correctly:
 
 ```js
-twMerge('p-4 clamp-[p,1,3]')
+twMerge('p-4 clamp-[p,1,3]');
 // => 'clamp-[p,1,3]'
 
-twMerge('clamp-[p,1,3] p-4')
+twMerge('clamp-[p,1,3] p-4');
 // => 'p-4'
 
-twMerge('text-lg clamp-[text,lg,3xl]')
+twMerge('text-lg clamp-[text,lg,3xl]');
 // => 'clamp-[text,lg,3xl]'
 
 // Hierarchical conflicts work too
-twMerge('px-4 py-2 clamp-[p,1,3]')
+twMerge('px-4 py-2 clamp-[p,1,3]');
 // => 'clamp-[p,1,3]'
 
-twMerge('w-4 h-8 clamp-[size,10,20]')
+twMerge('w-4 h-8 clamp-[size,10,20]');
 // => 'clamp-[size,10,20]'
 ```
 

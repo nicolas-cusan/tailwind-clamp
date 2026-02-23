@@ -10,74 +10,80 @@
 }
 
 @layer base {
-  ul,
-  pre,
-  table,
-  ul,
-  p {
-    @apply clamp-[mb,3,5];
+  .prose {
+    ul,
+    pre,
+    table,
+    p {
+      @apply clamp-[mb,3,5];
+    }
+
+    ul {
+      @apply list-disc list-outside clamp-[pl,4,6];
+    }
+
+    li {
+      @apply clamp-[mb,1,2] last:mb-0;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      @apply font-bold tracking-tight clamp-[mb,4,6] clamp-[mt,10,16] first:mt-0 clamp-[scroll-mt,3,6];
+    }
+
+    h1 {
+      @apply clamp-[text,3xl,5xl];
+    }
+
+    h2 {
+      @apply clamp-[text,2xl,3xl];
+    }
+
+    h3 {
+      @apply clamp-[text,xl,2xl];
+    }
+
+    h4 {
+      @apply clamp-[text,lg,xl];
+    }
+
+    pre {
+      @apply bg-white clamp-[px,3,5] clamp-[py,2,3] rounded-lg overflow-auto max-w-full border border-stone-200;
+    }
+
+    code {
+      @apply relative px-2 text-[90%] break-inside-avoid inline-block;
+      @apply before:absolute before:inset-[0.1em] before:bg-white before:border-stone-200 before:border before:rounded-md before:z-[-1];
+    }
+
+    pre code {
+      @apply p-0 inline bg-transparent before:hidden;
+    }
+
+    table {
+      @apply w-full border-collapse;
+    }
+
+    th,
+    td {
+      @apply text-left clamp-[px,1.5,4] first:pl-0 last:pr-0 py-2;
+    }
+
+    td {
+      @apply border-t border-stone-200;
+    }
+
+    a {
+      @apply text-sky-600 transition hover:text-sky-800 underline underline-offset-2 decoration-1;
+    }
   }
 
-  ul {
-    @apply list-disc list-outside clamp-[pl,4,6];
-  }
-
-  li {
-    @apply clamp-[mb,1,2] last:mb-0;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply font-semibold clamp-[mb,4,6] clamp-[mt,10,16] first:mt-0;
-  }
-
-  h1 {
-    @apply clamp-[text,3xl,5xl];
-  }
-
-  h2 {
-    @apply clamp-[text,2xl,3xl] border-b border-white pb-2;
-  }
-
-  h3 {
-    @apply clamp-[text,xl,2xl];
-  }
-
-  h4 {
-    @apply clamp-[text,lg,xl];
-  }
-
-  pre {
-    @apply bg-white clamp-[px,3,6] clamp-[py,2,4] rounded-md overflow-auto max-w-full;
-  }
-
-  code {
-    @apply relative px-1.5 text-[90%] break-inside-avoid inline-block;
-    @apply before:absolute before:inset-[0.1em] before:bg-white before:rounded-md before:z-[-1];
-  }
-
-  pre code {
-    @apply p-0 inline bg-transparent;
-  }
-
-  table {
-    @apply w-full border-collapse;
-  }
-
-  th,
-  td {
-    @apply text-left clamp-[px,1.5,4] first:pl-0 last:pr-0 py-2;
-  }
-
-  td {
-    @apply border-t border-white;
-  }
-
-  a {
-    @apply text-stone-500 transition hover:text-stone-700 underline;
+  /* TOC active state */
+  .toc-link.is-active {
+    @apply text-sky-600! border-l-sky-600!;
   }
 }

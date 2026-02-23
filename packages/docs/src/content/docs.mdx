@@ -4,20 +4,16 @@ description: A Tailwind CSS plugin to use CSS clamp in your projects
 ---
 import Conditional  from '../components/Conditional.astro';
 import BtnList from '../components/BtnList.astro';
+import Note from '../components/Note.astro';
+import ResizeDemo from '../components/ResizeDemo.astro';
 
 <Conditional target="md">
+
   # [Tailwind clamp 🗜️](https://nicolas-cusan.github.io/tailwind-clamp/)
 
-  Leverage the the CSS `clamp` function in your [Tailwind CSS](https://tailwindcss.com/) project.
-</Conditional>
+  **Fluid interfaces. From mobile to desktop.**
 
-<Conditional target="astro">
-  # Tailwind clamp 🗜️
-
-  <div class="clamp-[text,lg,xl] [&>p>a]:no-underline">
-    Leverage the the CSS `clamp` function in your [Tailwind CSS](https://tailwindcss.com/) project.
-  </div>
-  <BtnList />
+  [Tailwind CSS](https://tailwindcss.com/) plugin to build responsive interfaces that scale smoothly using CSS `clamp()` without breakpoint micromanagement.
 </Conditional>
 
 ## Features
@@ -28,6 +24,8 @@ import BtnList from '../components/BtnList.astro';
 - Supports `text` values with multiple properties (`fontSize`, `lineHeight`, `letterSpacing`). If `lineHeight` is definded as a unitless number or a `calc()` function, the resulting value is calculated and converted to the `fontSize` unit.
 - Supports using Tailwind CSS theme values, arbitrary values or a combination.
 - Supports container queries.
+- Supports CSS custom properties (`--*`) as the target property, to store `clamp()` values in variables for reuse.
+- Supports defining clamped theme variables via `@theme { --clamp-*: start, end; }`.
 
 ## Requirements
 
@@ -97,6 +95,15 @@ clamp-[<property>,<start>,<end>,[minSize,maxSize]]
 </div>
 ```
 
+<Conditional target="astro">
+<ResizeDemo label="Resize to see fluid padding and typography in action">
+  <div class="clamp-[p,0.75rem,2.5rem,17.5rem,50rem]">
+    <p class="clamp-[text,1.125rem,2.25rem,17.5rem,50rem] font-bold clamp-[mb,0.25rem,0.75rem,17.5rem,50rem]">Fluid heading</p>
+    <p class="clamp-[text,0.8125rem,1.0625rem,17.5rem,50rem] text-stone-500 leading-relaxed mb-0">This text and the surrounding padding scale fluidly with the viewport width using <code>clamp()</code>.</p>
+  </div>
+</ResizeDemo>
+</Conditional>
+
 ### Note on spacing and sizing properties
 
 All spacing and sizing properties (`p`, `m`, `w`, etc.) accept unitless numbers and .5 floating numbers that will get multiplied by the `--spacing` variable, analog to how Tailwind CSS handles spacing values.
@@ -115,7 +122,9 @@ You can use CSS custom properties (`--*`) as the target property to store a `cla
 clamp-[--variable-name,start,end]
 ```
 
+<Note>
 Only explicit CSS lengths (`px`, `rem`, `em`) are accepted as values — theme tokens and unitless numbers are not supported for custom properties.
+</Note>
 
 #### Example
 
@@ -127,6 +136,19 @@ Only explicit CSS lengths (`px`, `rem`, `em`) are accepted as values — theme t
   </section>
 </body>
 ```
+
+<Conditional target="astro">
+<ResizeDemo label="Custom property storing a clamp value, reused via var()" height="150px">
+  <div class="clamp-[--demo-space,0.25rem,2rem,17.5rem,50rem] clamp-[p,0.75rem,2rem,17.5rem,50rem]">
+    <div class="flex gap-[var(--demo-space)]">
+      <div class="bg-stone-300 rounded clamp-[size,2.5rem,5rem,17.5rem,50rem] flex-none"></div>
+      <div class="bg-stone-300 rounded clamp-[size,2.5rem,5rem,17.5rem,50rem] flex-none"></div>
+      <div class="bg-stone-300 rounded clamp-[size,2.5rem,5rem,17.5rem,50rem] flex-none"></div>
+    </div>
+    <p class="text-sm text-stone-500 mb-0 mt-3">Gap and box size scale via <code>clamp()</code> stored in a CSS variable</p>
+  </div>
+</ResizeDemo>
+</Conditional>
 
 ### Theme variables
 
@@ -182,7 +204,9 @@ Or in custom CSS:
 }
 ```
 
+<Note>
 Only explicit CSS lengths (`px`, `rem`, `em`) are accepted — unitless numbers and theme tokens are not supported in theme variable definitions.
+</Note>
 
 ## Supported properties
 

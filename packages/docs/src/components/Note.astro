@@ -1,0 +1,30 @@
+---
+interface Props {
+  type?: 'note' | 'tip' | 'warning';
+}
+
+const { type = 'note' } = Astro.props;
+
+const styles = {
+  note: 'border-orange-400/30 bg-orange-50 text-orange-800 [&_code]:px-1',
+  tip: 'border-green-400 bg-green-50 text-green-900 [&_strong]:text-green-700',
+  warning:
+    'border-amber-400 bg-amber-50 text-amber-900 [&_strong]:text-amber-700',
+};
+
+// const icons = {
+//   note: '🗒️',
+//   tip: '💡',
+//   warning: '⚠️',
+// };
+---
+
+<div
+  class:list={[
+    'border rounded-lg clamp-[px,3,5] clamp-[py,2,3] clamp-[mb,3,5] [&>p]:mb-0 [&>p]:text-inherit',
+    styles[type],
+  ]}
+>
+  <p><strong>{type.charAt(0).toUpperCase() + type.slice(1)}</strong></p>
+  <slot />
+</div>

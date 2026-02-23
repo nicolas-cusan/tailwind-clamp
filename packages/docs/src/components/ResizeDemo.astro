@@ -1,0 +1,87 @@
+---
+import globalStyles from '../styles/global.css?inline';
+
+interface Props {
+  label?: string;
+  height?: string;
+}
+
+const { label, height = '180px' } = Astro.props;
+const slotHtml = await Astro.slots.render('default');
+
+const srcdoc = `<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://rsms.me/">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<style>${globalStyles}</style>
+</head>
+<body style="overflow:hidden;background:white">${slotHtml}</body>
+</html>`;
+---
+
+<div class="clamp-[mb,3,5] not-prose">
+  {label && <p class="text-sm text-stone-500 mb-2">{label}</p>}
+  <div class="resize-demo flex" style="max-width: 100%;">
+    <div
+      class="resize-demo-content border border-stone-200 rounded-l-lg overflow-hidden min-w-[280px]"
+      style="width: 100%;"
+    >
+      <iframe
+        srcdoc={srcdoc}
+        style={`width: 100%; height: ${height}; border: none; display: block;`}
+        title="Interactive clamp demo"
+      ></iframe>
+    </div>
+    <button
+      class="resize-demo-handle flex-none w-3 bg-stone-100 border border-l-0 border-stone-200 rounded-r-lg cursor-col-resize flex items-center justify-center hover:bg-stone-200 transition-colors"
+      aria-label="Drag to resize"
+      title="Drag to resize"
+    >
+      <svg
+        width="2"
+        height="16"
+        viewBox="0 0 2 16"
+        fill="none"
+        class="text-stone-400"
+      >
+        <circle cx="1" cy="2" r="1" fill="currentColor" />
+        <circle cx="1" cy="6" r="1" fill="currentColor" />
+        <circle cx="1" cy="10" r="1" fill="currentColor" />
+        <circle cx="1" cy="14" r="1" fill="currentColor" />
+      </svg>
+    </button>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.resize-demo').forEach((demo) => {
+    const handle = demo.querySelector('.resize-demo-handle') as HTMLElement;
+    const content = demo.querySelector('.resize-demo-content') as HTMLElement;
+    if (!handle || !content) return;
+
+    let dragging = false;
+
+    handle.addEventListener('pointerdown', (e: PointerEvent) => {
+      e.preventDefault();
+      dragging = true;
+      handle.setPointerCapture(e.pointerId);
+      document.documentElement.style.cursor = 'col-resize';
+      document.documentElement.style.userSelect = 'none';
+    });
+
+    handle.addEventListener('pointermove', (e: PointerEvent) => {
+      if (!dragging) return;
+      const demoRect = demo.getBoundingClientRect();
+      const newWidth = Math.max(280, e.clientX - demoRect.left);
+      content.style.width = `${Math.min(newWidth, demoRect.width - handle.offsetWidth)}px`;
+    });
+
+    handle.addEventListener('pointerup', () => {
+      dragging = false;
+      document.documentElement.style.cursor = '';
+      document.documentElement.style.userSelect = '';
+    });
+  });
+</script>

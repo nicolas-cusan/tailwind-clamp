@@ -1,7 +1,9 @@
 ---
 import '../styles/global.css';
 import GitHub from '../icons/github.svg';
+import X from '../icons/x.svg';
 import { SEO } from 'astro-seo';
+import Header from '../components/Header.astro';
 
 interface Props {
   title: string;
@@ -11,24 +13,36 @@ const { title } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en" class="clamp-[text,base,lg] bg-gradient-to-b from-stone-200 to-stone-300 text-stone-800">
+<html
+  lang="en"
+  class="clamp-[text,base,lg] scroll-smooth bg-stone-100 text-stone-800"
+>
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Tailwind CSS plugin to use CSS clamp in your projects" />
+    <meta
+      name="description"
+      content="Tailwind CSS plugin to use CSS clamp in your projects"
+    />
     <meta name="viewport" content="width=device-width" />
 
     <SEO
       title={title}
       description="Tailwind CSS plugin to use CSS clamp in your projects"
-
       twitter={{
         creator: '@n_cusan',
       }}
       extend={{
         link: [
           { rel: 'icon', href: '/tailwind-clamp/favicon.ico' },
-          { rel: 'icon', href: '/tailwind-clamp/icon.svg', type: 'image/svg+xml' },
-          { rel: 'apple-touch-icon', href: '/tailwind-clamp/apple-touch-icon.png' },
+          {
+            rel: 'icon',
+            href: '/tailwind-clamp/icon.svg',
+            type: 'image/svg+xml',
+          },
+          {
+            rel: 'apple-touch-icon',
+            href: '/tailwind-clamp/apple-touch-icon.png',
+          },
           { rel: 'manifest', href: '/tailwind-clamp/manifest.webmanifest' },
         ],
 
@@ -36,7 +50,6 @@ const { title } = Astro.props;
           { name: 'theme-color', content: '#000' },
           { name: 'generator', content: Astro.generator },
           { name: 'twitter:title', content: title },
-
         ],
       }}
     />
@@ -51,29 +64,39 @@ const { title } = Astro.props;
     />
     <title>{title}</title>
   </head>
-  <body class="">
-    <!-- <header class="border-b border-gray-200 dark:border-gray-800">
-      <nav class="container mx-auto px-4 py-4">
-        <div class="flex items-center justify-between">
-          <a href="/" class="text-xl font-bold text-gray-900 dark:text-white">Tailwind Clamp</a>
-          <div class="flex items-center space-x-4">
-            <a href="/docs" class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">Documentation</a>
-            <a href="https://github.com/nicolas-cusan/tailwind-clamp" class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">GitHub</a>
-          </div>
-        </div>
-      </nav>
-    </header> -->
-    <main class="clamp-[px,5,10] max-w-4xl mx-auto clamp-[py,8,18]">
+  <body
+    class="before:content before:absolute before:inset-0 before:bg-linear-to-b before:from-sky-500/40"
+  >
+    <Header />
+    <main
+      class="clamp-[px,5,10] max-w-5xl mx-auto clamp-[py,8,18] relative z-10"
+    >
       <slot />
     </main>
-    <footer class=" bg-white">
-      <div class="clamp-[px,5,10] max-w-4xl mx-auto clamp-[py,4,6] flex flex-wrap gap-1 justify-between">
-        <p class=" text-stone-600 mb-0">
-          Made by <a href="https://www.nicolascusan.com" class="">Nicolas Cusan</a>.
+    <footer class="bg-white/60 border-t border-stone-200">
+      <div
+        class="clamp-[px,5,10] max-w-5xl mx-auto clamp-[py,4,6] flex flex-wrap gap-1 justify-between"
+      >
+        <p class="text-stone-500 mb-0 text-sm">
+          Made by <a
+            href="https://www.nicolascusan.com"
+            class="hover:text-sky-600 underline decoration-1 underline-offset-4 decoration-stone-300 hover:decoration-sky-600 transition"
+            >Nicolas Cusan</a
+          >.
         </p>
-        <p class=" text-stone-600 mb-0">
-          <a href="https://github.com/nicolas-cusan/tailwind-clamp" class="inline-flex items-center gap-2 no-underline">
-            <GitHub class="fill-current flex-none clamp-[size,4,5]" /> View on GitHub
+        <p class="text-stone-500 mb-0 text-sm flex gap-4">
+          <a
+            href="https://github.com/nicolas-cusan/tailwind-clamp"
+            class="inline-flex items-center gap-2 hover:text-sky-600"
+          >
+            <GitHub class="fill-current flex-none clamp-[size,4,5]" />
+          </a>
+
+          <a
+            href="https://x.com/n_cusan"
+            class="inline-flex items-center gap-2 hover:text-sky-600"
+          >
+            <X class="fill-current flex-none clamp-[size,3.5,4.5]" />
           </a>
         </p>
       </div>

@@ -1,9 +1,25 @@
 ---
 import Btn from './Btn.astro';
 import GitHub from '../icons/github.svg';
+import X from '../icons/x.svg';
+
+// let stars: string | null = null;
+// try {
+//   const res = await fetch(
+//     'https://api.github.com/repos/nicolas-cusan/tailwind-clamp',
+//   );
+//   if (res.ok) {
+//     const data = await res.json();
+//     const count = data.stargazers_count;
+//     stars =
+//       count >= 1000 ? `${(count / 1000).toFixed(count >= 10000 ? 0 : 1)}k` : String(count);
+//   }
+// } catch {
+//   // Silently fail — stars badge just won't render
+// }
 ---
 
-<ul class="p-0 flex gap-2 list-none clamp-[pt,1,2]">
+<ul class="flex gap-2 clamp-[pt,1,2] justify-center">
   <li>
     <Btn href="https://github.com/nicolas-cusan/tailwind-clamp">
       <GitHub class="fill-current flex-none clamp-[size,4,5]" /> View on GitHub

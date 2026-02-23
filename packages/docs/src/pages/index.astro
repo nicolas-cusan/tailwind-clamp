@@ -1,10 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Docs from '../content/docs.mdx';
+import TableOfContents from '../components/TableOfContents.astro';
 ---
 
 <Layout title="Tailwind Clamp - Documentation">
-  <article class="prose prose-lg dark:prose-invert mx-auto">
-    <Docs />
-  </article>
+  <div class="xl:grid xl:grid-cols-[13rem_1fr] xl:gap-10">
+    <TableOfContents />
+    <article class="prose prose-lg dark:prose-invert min-w-0">
+      <Docs />
+    </article>
+  </div>
 </Layout>

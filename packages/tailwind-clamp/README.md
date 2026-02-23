@@ -10,6 +10,8 @@ Leverage the the CSS `clamp` function in your [Tailwind CSS](https://tailwindcss
 - Supports `text` values with multiple properties (`fontSize`, `lineHeight`, `letterSpacing`). If `lineHeight` is definded as a unitless number or a `calc()` function, the resulting value is calculated and converted to the `fontSize` unit.
 - Supports using Tailwind CSS theme values, arbitrary values or a combination.
 - Supports container queries.
+- Supports CSS custom properties (`--*`) as the target property, to store `clamp()` values in variables for reuse.
+- Supports defining clamped theme variables via `@theme { --clamp-*: start, end; }`.
 
 ## Requirements
 
@@ -97,7 +99,8 @@ You can use CSS custom properties (`--*`) as the target property to store a `cla
 clamp-[--variable-name,start,end]
 ```
 
-Only explicit CSS lengths (`px`, `rem`, `em`) are accepted as values — theme tokens and unitless numbers are not supported for custom properties.
+> [!NOTE]
+> Only explicit CSS lengths (`px`, `rem`, `em`) are accepted as values — theme tokens and unitless numbers are not supported for custom properties.
 
 #### Example
 
@@ -164,7 +167,8 @@ Or in custom CSS:
 }
 ```
 
-Only explicit CSS lengths (`px`, `rem`, `em`) are accepted — unitless numbers and theme tokens are not supported in theme variable definitions.
+> [!NOTE]
+> Only explicit CSS lengths (`px`, `rem`, `em`) are accepted — unitless numbers and theme tokens are not supported in theme variable definitions.
 
 ## Supported properties
 

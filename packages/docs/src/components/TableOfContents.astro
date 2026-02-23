@@ -1,0 +1,70 @@
+---
+const sections = [
+  { id: 'features', label: 'Features' },
+  { id: 'requirements', label: 'Requirements' },
+  { id: 'installation', label: 'Installation' },
+  { id: 'usage', label: 'Usage' },
+  { id: 'supported-properties', label: 'Supported properties' },
+  { id: 'usage-with-tailwind-merge', label: 'tailwind-merge' },
+  { id: 'credits--mentions', label: 'Credits' },
+];
+---
+
+<nav class="hidden xl:block" aria-label="Table of contents">
+  <div class="sticky top-10">
+    <ul class="space-y-1 border-l border-stone-900/10">
+      {
+        sections.map(({ id, label }) => (
+          <li>
+            <a
+              href={`#${id}`}
+              data-toc-link={id}
+              class="toc-link block py-1 pl-4 -ml-px border-l border-transparent text-sm text-stone-900/50 transition-colors duration-200 hover:text-stone-900/70 hover:border-stone-900/70"
+            >
+              {label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</nav>
+
+<script>
+  const links = document.querySelectorAll('[data-toc-link]');
+  const headings = document.querySelectorAll('article h2[id]');
+
+  function setActive(id: string) {
+    links.forEach((link) => {
+      link.classList.toggle(
+        'is-active',
+        link.getAttribute('data-toc-link') === id,
+      );
+    });
+  }
+
+  if (links.length && headings.length) {
+    // Initial highlight: find the last heading above the top quarter of the viewport
+    const threshold = window.innerHeight * 0.25;
+    let activeId = headings[0].id;
+    headings.forEach((h) => {
+      if (h.getBoundingClientRect().top <= threshold) {
+        activeId = h.id;
+      }
+    });
+    setActive(activeId);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActive(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: '0px 0px -75% 0px' },
+    );
+
+    headings.forEach((heading) => observer.observe(heading));
+  }
+</script>
