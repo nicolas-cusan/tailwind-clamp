@@ -35,7 +35,7 @@ const srcdoc = `<!DOCTYPE html>
       ></iframe>
     </div>
     <button
-      class="resize-demo-handle flex-none w-3 bg-stone-100 border border-l-0 border-stone-200 rounded-r-lg cursor-col-resize flex items-center justify-center hover:bg-stone-200 transition-colors"
+      class="resize-demo-handle flex-none w-6 bg-stone-100 border border-l-0 border-stone-200 rounded-r-lg cursor-col-resize flex items-center justify-center hover:bg-stone-200 transition-colors touch-none"
       aria-label="Drag to resize"
       title="Drag to resize"
     >
@@ -67,8 +67,6 @@ const srcdoc = `<!DOCTYPE html>
       e.preventDefault();
       dragging = true;
       handle.setPointerCapture(e.pointerId);
-      document.documentElement.style.cursor = 'col-resize';
-      document.documentElement.style.userSelect = 'none';
     });
 
     handle.addEventListener('pointermove', (e: PointerEvent) => {
@@ -80,8 +78,6 @@ const srcdoc = `<!DOCTYPE html>
 
     handle.addEventListener('pointerup', () => {
       dragging = false;
-      document.documentElement.style.cursor = '';
-      document.documentElement.style.userSelect = '';
     });
   });
 </script>
