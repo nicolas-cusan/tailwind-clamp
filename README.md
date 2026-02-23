@@ -1,4 +1,4 @@
-# [Tailwind clamp 🗜️](https://nicolas-cusan.github.io/tailwind-clamp/)
+# [Tailwind clamp](https://nicolas-cusan.github.io/tailwind-clamp/)
 
 **Fluid interfaces. From mobile to desktop.**
 
