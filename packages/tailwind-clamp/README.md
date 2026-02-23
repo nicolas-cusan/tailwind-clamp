@@ -1,6 +1,8 @@
 # [Tailwind clamp 🗜️](https://nicolas-cusan.github.io/tailwind-clamp/)
 
-Leverage the the CSS `clamp` function in your [Tailwind CSS](https://tailwindcss.com/) project.
+**Fluid interfaces. From mobile to desktop.**
+
+[Tailwind CSS](https://tailwindcss.com/) plugin to build responsive interfaces that scale smoothly using CSS `clamp()` without breakpoint micromanagement.
 
 ## Features
 
