@@ -73,6 +73,20 @@ export const resolveProperty = (name) => {
         props: ['paddingBlock'],
       };
 
+    case 'pbs':
+      return {
+        type: 'spacing',
+        key: 'padding',
+        props: ['paddingBlockStart'],
+      };
+
+    case 'pbe':
+      return {
+        type: 'spacing',
+        key: 'padding',
+        props: ['paddingBlockEnd'],
+      };
+
     case 'm':
       return {
         type: 'spacing',
@@ -134,6 +148,20 @@ export const resolveProperty = (name) => {
         type: 'spacing',
         key: 'margin',
         props: ['marginBlock'],
+      };
+
+    case 'mbs':
+      return {
+        type: 'spacing',
+        key: 'margin',
+        props: ['marginBlockStart'],
+      };
+
+    case 'mbe':
+      return {
+        type: 'spacing',
+        key: 'margin',
+        props: ['marginBlockEnd'],
       };
 
     case 'inset':
@@ -331,6 +359,20 @@ export const resolveProperty = (name) => {
         props: ['scrollMarginRight'],
       };
 
+    case 'scroll-mbs':
+      return {
+        type: 'spacing',
+        key: 'scrollMargin',
+        props: ['scrollMarginBlockStart'],
+      };
+
+    case 'scroll-mbe':
+      return {
+        type: 'spacing',
+        key: 'scrollMargin',
+        props: ['scrollMarginBlockEnd'],
+      };
+
     case 'scroll-p':
       return {
         type: 'spacing',
@@ -392,6 +434,20 @@ export const resolveProperty = (name) => {
         type: 'spacing',
         key: 'scrollPadding',
         props: ['scrollPaddingRight'],
+      };
+
+    case 'scroll-pbs':
+      return {
+        type: 'spacing',
+        key: 'scrollPadding',
+        props: ['scrollPaddingBlockStart'],
+      };
+
+    case 'scroll-pbe':
+      return {
+        type: 'spacing',
+        key: 'scrollPadding',
+        props: ['scrollPaddingBlockEnd'],
       };
 
     case 'translate':

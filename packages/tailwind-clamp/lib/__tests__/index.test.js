@@ -605,6 +605,70 @@ describe('resolveProperty', () => {
         props: ['inset'],
       });
     });
+
+    it('resolves "pbs" to paddingBlockStart', () => {
+      expect(resolveProperty('pbs')).toEqual({
+        type: 'spacing',
+        key: 'padding',
+        props: ['paddingBlockStart'],
+      });
+    });
+
+    it('resolves "pbe" to paddingBlockEnd', () => {
+      expect(resolveProperty('pbe')).toEqual({
+        type: 'spacing',
+        key: 'padding',
+        props: ['paddingBlockEnd'],
+      });
+    });
+
+    it('resolves "mbs" to marginBlockStart', () => {
+      expect(resolveProperty('mbs')).toEqual({
+        type: 'spacing',
+        key: 'margin',
+        props: ['marginBlockStart'],
+      });
+    });
+
+    it('resolves "mbe" to marginBlockEnd', () => {
+      expect(resolveProperty('mbe')).toEqual({
+        type: 'spacing',
+        key: 'margin',
+        props: ['marginBlockEnd'],
+      });
+    });
+
+    it('resolves "scroll-mbs" to scrollMarginBlockStart', () => {
+      expect(resolveProperty('scroll-mbs')).toEqual({
+        type: 'spacing',
+        key: 'scrollMargin',
+        props: ['scrollMarginBlockStart'],
+      });
+    });
+
+    it('resolves "scroll-mbe" to scrollMarginBlockEnd', () => {
+      expect(resolveProperty('scroll-mbe')).toEqual({
+        type: 'spacing',
+        key: 'scrollMargin',
+        props: ['scrollMarginBlockEnd'],
+      });
+    });
+
+    it('resolves "scroll-pbs" to scrollPaddingBlockStart', () => {
+      expect(resolveProperty('scroll-pbs')).toEqual({
+        type: 'spacing',
+        key: 'scrollPadding',
+        props: ['scrollPaddingBlockStart'],
+      });
+    });
+
+    it('resolves "scroll-pbe" to scrollPaddingBlockEnd', () => {
+      expect(resolveProperty('scroll-pbe')).toEqual({
+        type: 'spacing',
+        key: 'scrollPadding',
+        props: ['scrollPaddingBlockEnd'],
+      });
+    });
   });
 
   describe('multi-prop outputs', () => {

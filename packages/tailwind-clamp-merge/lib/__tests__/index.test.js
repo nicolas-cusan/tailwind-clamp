@@ -175,6 +175,30 @@ describe('hyphenated prop distinction', () => {
     ).toBe('clamp-[scroll-p,1rem,2rem] clamp-[scroll-ps,0.5rem,1rem]');
   });
 
+  it('pbs and pbe do not interfere', () => {
+    expect(
+      twMerge('clamp-[pbs,1rem,2rem] clamp-[pbe,0.5rem,1rem]')
+    ).toBe('clamp-[pbs,1rem,2rem] clamp-[pbe,0.5rem,1rem]');
+  });
+
+  it('mbs and mbe do not interfere', () => {
+    expect(
+      twMerge('clamp-[mbs,1rem,2rem] clamp-[mbe,0.5rem,1rem]')
+    ).toBe('clamp-[mbs,1rem,2rem] clamp-[mbe,0.5rem,1rem]');
+  });
+
+  it('scroll-mbs and scroll-mbe do not interfere', () => {
+    expect(
+      twMerge('clamp-[scroll-mbs,1rem,2rem] clamp-[scroll-mbe,0.5rem,1rem]')
+    ).toBe('clamp-[scroll-mbs,1rem,2rem] clamp-[scroll-mbe,0.5rem,1rem]');
+  });
+
+  it('scroll-pbs and scroll-pbe do not interfere', () => {
+    expect(
+      twMerge('clamp-[scroll-pbs,1rem,2rem] clamp-[scroll-pbe,0.5rem,1rem]')
+    ).toBe('clamp-[scroll-pbs,1rem,2rem] clamp-[scroll-pbe,0.5rem,1rem]');
+  });
+
   it('gap-x and gap-y do not interfere', () => {
     expect(
       twMerge('clamp-[gap-x,1rem,2rem] clamp-[gap-y,0.5rem,1rem]')

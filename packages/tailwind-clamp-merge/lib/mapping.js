@@ -18,6 +18,8 @@ export const PROP_TO_GROUP = {
   pe: 'pe',
   px: 'px',
   py: 'py',
+  pbs: 'pbs',
+  pbe: 'pbe',
 
   // Margin
   m: 'm',
@@ -29,6 +31,8 @@ export const PROP_TO_GROUP = {
   me: 'me',
   mx: 'mx',
   my: 'my',
+  mbs: 'mbs',
+  mbe: 'mbe',
 
   // Inset
   inset: 'inset',
@@ -67,6 +71,8 @@ export const PROP_TO_GROUP = {
   'scroll-mb': 'scroll-mb',
   'scroll-ml': 'scroll-ml',
   'scroll-mr': 'scroll-mr',
+  'scroll-mbs': 'scroll-mbs',
+  'scroll-mbe': 'scroll-mbe',
 
   // Scroll Padding
   'scroll-p': 'scroll-p',
@@ -78,6 +84,8 @@ export const PROP_TO_GROUP = {
   'scroll-pb': 'scroll-pb',
   'scroll-pl': 'scroll-pl',
   'scroll-pr': 'scroll-pr',
+  'scroll-pbs': 'scroll-pbs',
+  'scroll-pbe': 'scroll-pbe',
 
   // Translate
   translate: 'translate',
