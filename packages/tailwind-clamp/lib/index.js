@@ -229,7 +229,7 @@ export default plugin.withOptions(function (options = {}) {
 
           const val = clamp(start, end, minvw, maxvw, useContainer);
 
-          const css = props.reduce((acc, prop) => {
+          const declarations = props.reduce((acc, prop) => {
             if (typeof prop === 'string') {
               acc[prop] = val;
             } else {
@@ -238,7 +238,11 @@ export default plugin.withOptions(function (options = {}) {
             return acc;
           }, {});
 
-          return css;
+          if (resolvedProp.selector) {
+            return { [resolvedProp.selector]: declarations };
+          }
+
+          return declarations;
         },
       },
       { values: utilityValues },

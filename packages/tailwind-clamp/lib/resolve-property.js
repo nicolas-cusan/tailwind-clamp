@@ -164,6 +164,22 @@ export const resolveProperty = (name) => {
         props: ['marginBlockEnd'],
       };
 
+    case 'space-x':
+      return {
+        type: 'spacing',
+        key: 'margin',
+        selector: '& > :not(:last-child)',
+        props: ['marginInlineEnd'],
+      };
+
+    case 'space-y':
+      return {
+        type: 'spacing',
+        key: 'margin',
+        selector: '& > :not(:last-child)',
+        props: ['marginBlockEnd'],
+      };
+
     case 'inset':
       return {
         type: 'spacing',
@@ -183,6 +199,20 @@ export const resolveProperty = (name) => {
         type: 'spacing',
         key: 'inset',
         props: ['insetBlock'],
+      };
+
+    case 'inset-bs':
+      return {
+        type: 'spacing',
+        key: 'inset',
+        props: ['insetBlockStart'],
+      };
+
+    case 'inset-be':
+      return {
+        type: 'spacing',
+        key: 'inset',
+        props: ['insetBlockEnd'],
       };
 
     case 'start':
@@ -295,6 +325,62 @@ export const resolveProperty = (name) => {
         type: 'spacing',
         key: 'maxHeight',
         props: ['maxHeight'],
+      };
+
+    case 'inline':
+      return {
+        type: 'spacing',
+        key: 'inlineSize',
+        props: ['inlineSize'],
+      };
+
+    case 'min-inline':
+      return {
+        type: 'spacing',
+        key: 'minInlineSize',
+        props: ['minInlineSize'],
+      };
+
+    case 'max-inline':
+      return {
+        type: 'spacing',
+        key: 'maxInlineSize',
+        props: ['maxInlineSize'],
+      };
+
+    case 'block':
+      return {
+        type: 'spacing',
+        key: 'blockSize',
+        props: ['blockSize'],
+      };
+
+    case 'min-block':
+      return {
+        type: 'spacing',
+        key: 'minBlockSize',
+        props: ['minBlockSize'],
+      };
+
+    case 'max-block':
+      return {
+        type: 'spacing',
+        key: 'maxBlockSize',
+        props: ['maxBlockSize'],
+      };
+
+    case 'basis':
+      return {
+        type: 'spacing',
+        key: 'flexBasis',
+        props: ['flexBasis'],
+      };
+
+    case 'indent':
+      return {
+        type: 'spacing',
+        key: 'textIndent',
+        props: ['textIndent'],
       };
 
     case 'scroll-m':
@@ -557,6 +643,34 @@ export const resolveProperty = (name) => {
         type: 'regular',
         key: 'borderWidth',
         props: ['borderBlockWidth'],
+      };
+
+    case 'border-bs':
+      return {
+        type: 'regular',
+        key: 'borderWidth',
+        props: ['borderBlockStartWidth'],
+      };
+
+    case 'border-be':
+      return {
+        type: 'regular',
+        key: 'borderWidth',
+        props: ['borderBlockEndWidth'],
+      };
+
+    case 'outline':
+      return {
+        type: 'regular',
+        key: 'outlineWidth',
+        props: ['outlineWidth'],
+      };
+
+    case 'outline-offset':
+      return {
+        type: 'regular',
+        key: 'outlineOffset',
+        props: ['outlineOffset'],
       };
 
     case 'decoration':

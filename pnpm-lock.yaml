@@ -41,6 +41,12 @@ importers:
       gray-matter:
         specifier: ^4.0.3
         version: 4.0.3
+      tailwind-clamp-merge:
+        specifier: workspace:*
+        version: link:../tailwind-clamp-merge
+      tailwind-merge:
+        specifier: ^3.4.0
+        version: 3.4.0
       tailwindcss:
         specifier: ^4.1.7
         version: 4.1.7

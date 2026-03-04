@@ -34,10 +34,16 @@ export const PROP_TO_GROUP = {
   mbs: 'mbs',
   mbe: 'mbe',
 
+  // Space Between
+  'space-x': 'space-x',
+  'space-y': 'space-y',
+
   // Inset
   inset: 'inset',
   'inset-x': 'inset-x',
   'inset-y': 'inset-y',
+  'inset-bs': 'inset-bs',
+  'inset-be': 'inset-be',
   start: 'start',
   end: 'end',
   top: 'top',
@@ -60,6 +66,20 @@ export const PROP_TO_GROUP = {
   'min-h': 'min-h',
   'max-w': 'max-w',
   'max-h': 'max-h',
+
+  // Logical Sizing
+  inline: 'inline',
+  'min-inline': 'min-inline',
+  'max-inline': 'max-inline',
+  block: 'block',
+  'min-block': 'min-block',
+  'max-block': 'max-block',
+
+  // Flex Basis
+  basis: 'basis',
+
+  // Text Indent
+  indent: 'indent',
 
   // Scroll Margin
   'scroll-m': 'scroll-m',
@@ -109,6 +129,12 @@ export const PROP_TO_GROUP = {
   'border-e': 'border-w-e',
   'border-x': 'border-w-x',
   'border-y': 'border-w-y',
+  'border-bs': 'border-w-bs',
+  'border-be': 'border-w-be',
+
+  // Outline
+  outline: 'outline-w',
+  'outline-offset': 'outline-offset',
 
   // Border Radius
   rounded: 'rounded',

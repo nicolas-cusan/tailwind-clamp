@@ -1,21 +1,28 @@
 ---
+import { extendTailwindMerge } from 'tailwind-merge';
+import { withTailwindClamp } from 'tailwind-clamp-merge';
+
+const twMerge = extendTailwindMerge(withTailwindClamp);
+
 interface Props {
-  href: string;
+  href?: string;
+  class?: string;
 }
 
-const { href } = Astro.props;
+const baseClass =
+  'bg-white relative transition hover:bg-stone-800 text-stone-800 px-4 py-2 rounded-lg inline-flex items-center gap-2 no-underline hover:text-white';
+
+const { href, class: className } = Astro.props;
+const merged = twMerge(baseClass, className);
 ---
 
 {
   href ? (
-    <a
-      href={href}
-      class="bg-white relative transition hover:bg-sky-600 text-stone-800 px-4 py-2.5 rounded-lg inline-flex items-center gap-2 no-underline hover:text-white"
-    >
+    <a href={href} class={merged}>
       <slot />
     </a>
   ) : (
-    <button class="bg-white relative transition hover:bg-sky-600 text-stone-800 px-4 py-2.5 rounded-lg inline-flex items-center gap-2 no-underline hover:text-white">
+    <button class={merged}>
       <slot />
     </button>
   )

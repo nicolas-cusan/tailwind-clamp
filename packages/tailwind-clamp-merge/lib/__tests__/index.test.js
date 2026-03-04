@@ -199,6 +199,24 @@ describe('hyphenated prop distinction', () => {
     ).toBe('clamp-[scroll-pbs,1rem,2rem] clamp-[scroll-pbe,0.5rem,1rem]');
   });
 
+  it('space-x and space-y do not interfere', () => {
+    expect(
+      twMerge('clamp-[space-x,1rem,2rem] clamp-[space-y,0.5rem,1rem]')
+    ).toBe('clamp-[space-x,1rem,2rem] clamp-[space-y,0.5rem,1rem]');
+  });
+
+  it('inset-bs and inset-be do not interfere', () => {
+    expect(
+      twMerge('clamp-[inset-bs,1rem,2rem] clamp-[inset-be,0.5rem,1rem]')
+    ).toBe('clamp-[inset-bs,1rem,2rem] clamp-[inset-be,0.5rem,1rem]');
+  });
+
+  it('inline and block do not interfere', () => {
+    expect(
+      twMerge('clamp-[inline,10rem,20rem] clamp-[block,5rem,10rem]')
+    ).toBe('clamp-[inline,10rem,20rem] clamp-[block,5rem,10rem]');
+  });
+
   it('gap-x and gap-y do not interfere', () => {
     expect(
       twMerge('clamp-[gap-x,1rem,2rem] clamp-[gap-y,0.5rem,1rem]')
@@ -394,6 +412,30 @@ describe('min/max conflicts', () => {
   it('max-h-screen conflicts with clamp-[max-h,...]', () => {
     expect(twMerge('max-h-screen clamp-[max-h,20rem,40rem]')).toBe(
       'clamp-[max-h,20rem,40rem]'
+    );
+  });
+
+  it('basis-1/2 conflicts with clamp-[basis,...]', () => {
+    expect(twMerge('basis-1/2 clamp-[basis,10rem,20rem]')).toBe(
+      'clamp-[basis,10rem,20rem]'
+    );
+  });
+
+  it('indent-4 conflicts with clamp-[indent,...]', () => {
+    expect(twMerge('indent-4 clamp-[indent,1rem,3rem]')).toBe(
+      'clamp-[indent,1rem,3rem]'
+    );
+  });
+
+  it('outline-2 conflicts with clamp-[outline,...]', () => {
+    expect(twMerge('outline-2 clamp-[outline,1px,3px]')).toBe(
+      'clamp-[outline,1px,3px]'
+    );
+  });
+
+  it('space-x-4 conflicts with clamp-[space-x,...]', () => {
+    expect(twMerge('space-x-4 clamp-[space-x,1rem,2rem]')).toBe(
+      'clamp-[space-x,1rem,2rem]'
     );
   });
 });

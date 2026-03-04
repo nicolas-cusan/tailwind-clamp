@@ -669,6 +669,140 @@ describe('resolveProperty', () => {
         props: ['scrollPaddingBlockEnd'],
       });
     });
+
+    it('resolves "inset-bs" to insetBlockStart', () => {
+      expect(resolveProperty('inset-bs')).toEqual({
+        type: 'spacing',
+        key: 'inset',
+        props: ['insetBlockStart'],
+      });
+    });
+
+    it('resolves "inset-be" to insetBlockEnd', () => {
+      expect(resolveProperty('inset-be')).toEqual({
+        type: 'spacing',
+        key: 'inset',
+        props: ['insetBlockEnd'],
+      });
+    });
+
+    it('resolves "inline" to inlineSize', () => {
+      expect(resolveProperty('inline')).toEqual({
+        type: 'spacing',
+        key: 'inlineSize',
+        props: ['inlineSize'],
+      });
+    });
+
+    it('resolves "min-inline" to minInlineSize', () => {
+      expect(resolveProperty('min-inline')).toEqual({
+        type: 'spacing',
+        key: 'minInlineSize',
+        props: ['minInlineSize'],
+      });
+    });
+
+    it('resolves "max-inline" to maxInlineSize', () => {
+      expect(resolveProperty('max-inline')).toEqual({
+        type: 'spacing',
+        key: 'maxInlineSize',
+        props: ['maxInlineSize'],
+      });
+    });
+
+    it('resolves "block" to blockSize', () => {
+      expect(resolveProperty('block')).toEqual({
+        type: 'spacing',
+        key: 'blockSize',
+        props: ['blockSize'],
+      });
+    });
+
+    it('resolves "min-block" to minBlockSize', () => {
+      expect(resolveProperty('min-block')).toEqual({
+        type: 'spacing',
+        key: 'minBlockSize',
+        props: ['minBlockSize'],
+      });
+    });
+
+    it('resolves "max-block" to maxBlockSize', () => {
+      expect(resolveProperty('max-block')).toEqual({
+        type: 'spacing',
+        key: 'maxBlockSize',
+        props: ['maxBlockSize'],
+      });
+    });
+
+    it('resolves "basis" to flexBasis', () => {
+      expect(resolveProperty('basis')).toEqual({
+        type: 'spacing',
+        key: 'flexBasis',
+        props: ['flexBasis'],
+      });
+    });
+
+    it('resolves "indent" to textIndent', () => {
+      expect(resolveProperty('indent')).toEqual({
+        type: 'spacing',
+        key: 'textIndent',
+        props: ['textIndent'],
+      });
+    });
+
+    it('resolves "space-x" with selector', () => {
+      const result = resolveProperty('space-x');
+      expect(result).toEqual({
+        type: 'spacing',
+        key: 'margin',
+        selector: '& > :not(:last-child)',
+        props: ['marginInlineEnd'],
+      });
+    });
+
+    it('resolves "space-y" with selector', () => {
+      const result = resolveProperty('space-y');
+      expect(result).toEqual({
+        type: 'spacing',
+        key: 'margin',
+        selector: '& > :not(:last-child)',
+        props: ['marginBlockEnd'],
+      });
+    });
+  });
+
+  describe('regular type properties', () => {
+    it('resolves "border-bs" to borderBlockStartWidth', () => {
+      expect(resolveProperty('border-bs')).toEqual({
+        type: 'regular',
+        key: 'borderWidth',
+        props: ['borderBlockStartWidth'],
+      });
+    });
+
+    it('resolves "border-be" to borderBlockEndWidth', () => {
+      expect(resolveProperty('border-be')).toEqual({
+        type: 'regular',
+        key: 'borderWidth',
+        props: ['borderBlockEndWidth'],
+      });
+    });
+
+    it('resolves "outline" to outlineWidth', () => {
+      expect(resolveProperty('outline')).toEqual({
+        type: 'regular',
+        key: 'outlineWidth',
+        props: ['outlineWidth'],
+      });
+    });
+
+    it('resolves "outline-offset" to outlineOffset', () => {
+      expect(resolveProperty('outline-offset')).toEqual({
+        type: 'regular',
+        key: 'outlineOffset',
+        props: ['outlineOffset'],
+      });
+    });
   });
 
   describe('multi-prop outputs', () => {

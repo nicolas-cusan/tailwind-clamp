@@ -21,7 +21,7 @@ The current version of the plugin is designed to be used with Tailwind version 4
 
 ## Installation
 
-Install the plugin from npm:
+Install the plugin from [npm](https://www.npmjs.com/package/tailwind-clamp):
 
 ```sh
 npm i tailwind-clamp
@@ -82,6 +82,18 @@ clamp-[<property>,<start>,<end>,[minSize,maxSize]]
   </div>
 </div>
 ```
+
+### Using a custom `maxSize` with the default `minSize`
+
+If you only want to override `maxSize` while keeping the default `minSize`, you can leave the fourth argument empty:
+
+```html
+<div class="clamp-[p,2,4,,md]">
+  Padding scales from the default minSize (375px) up to the `md` breakpoint.
+</div>
+```
+
+This is equivalent to writing `clamp-[p,2,4,23.4375rem,md]` but saves you from having to remember the default value.
 
 ### Note on spacing and sizing properties
 
@@ -174,29 +186,33 @@ Or in custom CSS:
 
 ## Supported properties
 
-- `p` including `pt`, `pb`, `pl`, `pr`, `px`, `py`, `ps`, `pe`.
-- `m` including `mt`, `mb`, `ml`, `mr`, `mx`, `my`, `ms`, `me`.
-- `inset` including `inset-x`, `inset-y`.
+- `p` including `pt`, `pb`, `pl`, `pr`, `px`, `py`, `ps`, `pe`, `pbs`, `pbe`.
+- `m` including `mt`, `mb`, `ml`, `mr`, `mx`, `my`, `ms`, `me`, `mbs`, `mbe`.
+- `space-x` and `space-y`
+- `inset` including `inset-x`, `inset-y`, `inset-bs`, `inset-be`.
 - `top`
 - `left` and `start`.
 - `right` and `end`.
 - `bottom`
 - `text` including `font-size`, `line-height` and `letter-spacing` if defined.
 - `gap` including `gap-x`, `gap-y`.
-- `w`
-- `h`
+- `w` and `inline`
+- `h` and `block`
 - `size`
-- `min-w` and `min-h`
-- `max-w` and `max-h`
+- `min-w`, `min-h`, `min-inline`, `min-block`
+- `max-w`, `max-h`, `max-inline`, `max-block`
+- `basis`
+- `indent`
 - `rounded` including `rounded-s`, `rounded-ss`, `rounded-se`, `rounded-e`, `rounded-ee`, `rounded-es`, `rounded-t`, `rounded-r`, `rounded-b`, `rounded-l`, `rounded-tl`, `rounded-tr`, `rounded-bl`, `rounded-br`.
 - `translate-x` and `translate-y`
 - `text-stroke`
 - `stroke`
 - `leading`
 - `tracking`
-- `border` including `border-t`, `border-b`, `border-l`, `border-r`, `border-x`, `border-y`.
-- `scroll-m` including `scroll-mx`, `scroll-my`, `scroll-ms`, `scroll-me`, `scroll-mt`, `scroll-mb`, `scroll-ml`, `scroll-mr`
-- `scroll-p` including `scroll-px`, `scroll-py`, `scroll-ps`, `scroll-pe`, `scroll-pt`, `scroll-pb`, `scroll-pl`, `scroll-pr`
+- `border` including `border-t`, `border-b`, `border-l`, `border-r`, `border-x`, `border-y`, `border-s`, `border-e`, `border-bs`, `border-be`.
+- `outline` and `outline-offset`
+- `scroll-m` including `scroll-mx`, `scroll-my`, `scroll-ms`, `scroll-me`, `scroll-mt`, `scroll-mb`, `scroll-ml`, `scroll-mr`, `scroll-mbs`, `scroll-mbe`
+- `scroll-p` including `scroll-px`, `scroll-py`, `scroll-ps`, `scroll-pe`, `scroll-pt`, `scroll-pb`, `scroll-pl`, `scroll-pr`, `scroll-pbs`, `scroll-pbe`
 - `decoration`
 - `underline-offset`
 - `--*` (CSS custom properties)

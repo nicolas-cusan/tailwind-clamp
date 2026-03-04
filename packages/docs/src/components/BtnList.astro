@@ -1,6 +1,7 @@
 ---
 import Btn from './Btn.astro';
 import GitHub from '../icons/github.svg';
+import Npm from '../icons/npm.svg';
 import X from '../icons/x.svg';
 
 // let stars: string | null = null;
@@ -19,10 +20,18 @@ import X from '../icons/x.svg';
 // }
 ---
 
-<ul class="flex gap-2 clamp-[pt,1,2] justify-center">
+<ul class="flex gap-3 clamp-[pt,1,2] justify-center">
   <li>
     <Btn href="https://github.com/nicolas-cusan/tailwind-clamp">
-      <GitHub class="fill-current flex-none clamp-[size,4,5]" /> View on GitHub
+      <GitHub class="fill-current flex-none clamp-[size,4,5]" /> GitHub
+    </Btn>
+  </li>
+  <li>
+    <Btn
+      href="https://www.npmjs.com/package/tailwind-clamp"
+      class="bg-[#CB3837] text-white hover:bg-white hover:text-[#CB3837]"
+    >
+      <Npm class="fill-current flex-none clamp-[size,3,4]" /> npm
     </Btn>
   </li>
 </ul>
