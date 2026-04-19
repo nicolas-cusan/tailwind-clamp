@@ -34,10 +34,6 @@ export default defineConfig({
   site: 'https://nicolas-cusan.github.io/tailwind-clamp',
   base: '/tailwind-clamp',
 
-  experimental: {
-    svg: true,
-  },
-
   vite: {
     plugins: [tailwindcss()],
   },

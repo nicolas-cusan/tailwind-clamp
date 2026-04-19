@@ -44,10 +44,10 @@
     "tailwind-merge": "^3.0.0"
   },
   "devDependencies": {
-    "@tailwindcss/vite": "^4.1.7",
-    "tailwind-merge": "^3.0.0",
-    "tailwindcss": "^4.1.7",
-    "vite": "^6.3.5",
-    "vitest": "^4.0.18"
+    "@tailwindcss/vite": "^4.2.2",
+    "tailwind-merge": "^3.5.0",
+    "tailwindcss": "^4.2.2",
+    "vite": "^8.0.8",
+    "vitest": "^4.1.4"
   }
 }
